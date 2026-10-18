@@ -1,0 +1,72 @@
+:root {
+  --white: #ffffff;
+  --black: #000000;
+
+  --bg: #1b1030;
+  --surface: #2a1a4a;
+  --surface-raised: #37245e;
+  --border: #4a3277;
+  --on-bg: #f3eaff;
+  --on-bg-muted: #b6a3d9;
+  --accent: #9b5cff;
+  --accent-strong: #6b32c9;
+  --on-accent: #ffffff;
+  --success: #45d9a0;
+  --danger: #ff5c7a;
+  --warning: #ffc24b;
+
+  --temperature: #ff7a45;
+  --density: #4bb6ff;
+  --magic-power: #c07bff;
+
+  --overlay: rgb(12 6 24 / 70%);
+  --shadow-panel: 0 8px 24px rgb(0 0 0 / 35%);
+  --shadow-card: 0 2px 8px rgb(0 0 0 / 25%);
+
+  --space-3xs: 2px;
+  --space-2xs: 4px;
+  --space-xs: 8px;
+  --space-sm: 12px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+  --space-2xl: 48px;
+
+  --border-width: 1px;
+  --focus-ring-width: 2px;
+  --focus-ring-offset: 2px;
+
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --radius-round: 50%;
+
+  --font-family: system-ui, 'Segoe UI', roboto, sans-serif;
+  --font-size-xs: 12px;
+  --font-size-sm: 14px;
+  --font-size-md: 16px;
+  --font-size-lg: 20px;
+  --font-size-xl: 28px;
+  --font-size-2xl: 40px;
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-bold: 700;
+  --line-height-tight: 1.2;
+  --line-height-base: 1.5;
+
+  --duration-fast: 120ms;
+  --duration-base: 240ms;
+  --duration-slow: 480ms;
+  --easing-base: ease-in-out;
+  --easing-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  --layout-min-width: 375px;
+  --layout-max-width: 1920px;
+  --layout-content-width: 1280px;
+
+  --z-base: 1;
+  --z-dropdown: 10;
+  --z-overlay: 100;
+  --z-dialog: 200;
+  --z-tooltip: 300;
+}

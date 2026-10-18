@@ -1,8 +1,7 @@
-import './style.css';
-import { setupCounter } from './counter.ts';
+import '@/styles/main.scss';
 
-document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
-  <p>alchemist</p>
-`;
+const app = document.querySelector<HTMLDivElement>('#app');
 
-setupCounter(document.querySelector<HTMLButtonElement>('#counter')!);
+if (app) {
+  app.textContent = "Alchemist's Cauldron";
+}
