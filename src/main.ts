@@ -1,10 +1,11 @@
 import '@/styles/main.scss';
-import { addIngredient, startGame, state } from '@/state/game-state';
+import { addIngredient, startGame } from '@/state/game-state';
 import { GAME_LAYOUT } from '@/ui/layout';
 import { initShelf, renderShelf } from '@/ui/shelf';
 import { renderCauldron } from '@/ui/cauldron';
 import { initActions, renderActions } from '@/ui/actions';
 import { renderHud } from '@/ui/hud';
+import { renderBars } from '@/ui/bars';
 
 function getElement(selector: string): HTMLElement {
   const element = document.querySelector<HTMLElement>(selector);
@@ -23,12 +24,14 @@ app.innerHTML = GAME_LAYOUT;
 const hudElement = getElement('#hud');
 const shelfElement = getElement('#shelf');
 const cauldronElement = getElement('#cauldron');
+const barsElement = getElement('#bars');
 const actionsElement = getElement('#actions');
 
 function render(): void {
   renderHud(hudElement);
   renderShelf(shelfElement);
   renderCauldron(cauldronElement);
+  renderBars(barsElement);
   renderActions(actionsElement);
 }
 
@@ -42,13 +45,4 @@ initActions(actionsElement, () => {
   render();
 });
 
-render();
-
-startGame();
-state.shelfStock['dragon-tears'] = 0;
-state.shelfStock['fairy-dust'] = 1;
-render();
-
-startGame();
-state.shelfStock['dragon-tears'] = 0;
 render();

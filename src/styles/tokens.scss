@@ -11,6 +11,7 @@
   --accent: #8ede3f;
   --accent-strong: #4a7a1e;
   --accent-soft: rgb(142 222 63 / 15%);
+  --accent-zone: rgb(142 222 63 / 32%);
   --on-accent: #0f0d14;
   --success: #45d9a0;
   --danger: #ff5c7a;
@@ -27,6 +28,7 @@
   --shadow-panel: 0 8px 24px rgb(0 0 0 / 35%);
   --shadow-card: 0 2px 8px rgb(0 0 0 / 25%);
   --glow-accent: 0 0 32px var(--accent);
+  --glow-bar: 0 0 8px var(--accent);
   --glow-title: 0 0 16px var(--accent-soft);
   --opacity-disabled: 0.45;
 
@@ -73,6 +75,8 @@
   --icon-sm: 18px;
   --icon-md: 36px;
   --badge-size: 28px;
+  --bar-height: 14px;
+  --bar-marker-size: 14px;
   --cauldron-width: 220px;
   --cauldron-height: 160px;
   --cauldron-rim-height: 18px;

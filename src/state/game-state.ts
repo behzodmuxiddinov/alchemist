@@ -1,7 +1,14 @@
 import { DEFAULT_DIFFICULTY, DIFFICULTIES } from '@/data/difficulty';
 import { getShelfIngredients } from '@/data/ingredients';
+import { calculateCauldron } from '@/logic/calculate-cauldron';
+import { pickRecipe } from '@/logic/recipe-generator';
 import { createStock, decreaseStock, hasStock } from '@/logic/stock';
-import type { GameStatus, IIngredient } from '@/types/game.types';
+import type {
+  GameStatus,
+  ICauldronValues,
+  IIngredient,
+  IRecipe,
+} from '@/types/game.types';
 
 const config = DIFFICULTIES[DEFAULT_DIFFICULTY];
 
@@ -18,7 +25,12 @@ export const state = {
   lives: 0,
   shelfStock: {} as Record<string, number>,
   cauldronIngredients: [] as IIngredient[],
+  activeRecipe: undefined as IRecipe | undefined,
 };
+
+export function getCauldronValues(): ICauldronValues {
+  return calculateCauldron(state.cauldronIngredients);
+}
 
 export function isPlaying(): boolean {
   return state.status === 'playing';
@@ -35,6 +47,7 @@ export function startGame(): void {
   state.lives = config.lives;
   state.shelfStock = createStock(shelfIngredients);
   state.cauldronIngredients = [];
+  state.activeRecipe = pickRecipe(DEFAULT_DIFFICULTY);
 }
 
 export function isCauldronFull(): boolean {
