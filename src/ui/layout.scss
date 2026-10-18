@@ -1,0 +1,68 @@
+@use '../styles/mixins' as *;
+
+.game {
+  display: grid;
+  gap: var(--space-md);
+  grid-template-areas:
+    'hud'
+    'title'
+    'cauldron'
+    'shelf'
+    'recipe'
+    'bars'
+    'actions';
+
+  @include tablet {
+    grid-template-columns: 1fr 1.4fr 1fr;
+    grid-template-areas:
+      'hud hud hud'
+      'title title title'
+      'shelf cauldron recipe'
+      'bars bars bars'
+      'actions actions actions';
+  }
+}
+
+.game__hud {
+  grid-area: hud;
+}
+
+.game__title {
+  grid-area: title;
+  color: var(--accent);
+  font-size: var(--font-size-xl);
+  text-align: center;
+  text-shadow: var(--glow-title);
+}
+
+.game__shelf {
+  grid-area: shelf;
+}
+
+.game__cauldron {
+  grid-area: cauldron;
+}
+
+.game__recipe {
+  grid-area: recipe;
+}
+
+.game__bars {
+  grid-area: bars;
+}
+
+.game__actions {
+  grid-area: actions;
+}
+
+.panel {
+  padding: var(--space-sm);
+  border: var(--border-width) solid var(--border);
+  border-radius: var(--radius-lg);
+  background-color: var(--surface);
+  box-shadow: var(--shadow-panel);
+}
+
+.game > :empty {
+  display: none;
+}
