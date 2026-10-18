@@ -1,0 +1,25 @@
+.game__hud {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-xs) var(--space-sm);
+  border: var(--border-width) solid var(--border);
+  border-radius: var(--radius-md);
+  background-color: var(--surface);
+  font-size: var(--font-size-sm);
+}
+
+.hud__value {
+  color: var(--accent);
+  font-weight: var(--font-weight-bold);
+}
+
+.hud__lives {
+  display: flex;
+  gap: var(--space-3xs);
+  min-height: var(--font-size-md);
+}
+
+.hud__life {
+  color: var(--danger);
+}

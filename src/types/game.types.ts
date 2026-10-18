@@ -11,6 +11,17 @@ export interface IIngredient {
   magicPower: number;
 }
 
+export interface IDifficultyConfig {
+  shelfSize: number;
+  maxCauldronIngredients: number;
+  startTime: number;
+  tolerance: number;
+  lives: number;
+  scorePerBrew: number;
+  timeBonus: number;
+  reactionCount: number;
+}
+
 export interface IRecipeRange {
   min: number;
   max: number;
