@@ -1,0 +1,101 @@
+@use '../styles/mixins' as *;
+
+.bars {
+  display: grid;
+  gap: var(--space-sm);
+
+  @include tablet {
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-md);
+  }
+}
+
+.bar {
+  padding: var(--space-xs) var(--space-sm);
+  border: var(--border-width) solid var(--border);
+  border-radius: var(--radius-md);
+  background-color: var(--surface);
+}
+
+.bar__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: var(--space-2xs);
+  font-size: var(--font-size-xs);
+  text-transform: uppercase;
+}
+
+.bar__value {
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-bold);
+}
+
+.bar__track {
+  position: relative;
+  height: var(--bar-height);
+  border-radius: var(--radius-sm);
+  background-color: var(--surface-raised);
+}
+
+.bar__zone {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: var(--start);
+  width: var(--size);
+  border: var(--border-width) solid var(--accent);
+  border-radius: var(--radius-sm);
+  background-color: var(--accent-zone);
+}
+
+.bar__zero {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: var(--position);
+  width: var(--border-width);
+  background-color: var(--on-bg);
+}
+
+.bar__marker {
+  position: absolute;
+  top: 50%;
+  left: var(--position);
+  width: var(--bar-marker-size);
+  height: var(--bar-marker-size);
+  border-radius: var(--radius-round);
+  background-color: var(--on-bg);
+  translate: -50% -50%;
+  transition: left var(--duration-base) var(--easing-bounce);
+}
+
+.bar__target {
+  margin-top: var(--space-3xs);
+  color: var(--on-bg-muted);
+  font-size: var(--font-size-xs);
+  text-align: right;
+}
+
+.bar--temperature .bar__label,
+.bar--temperature .bar__value {
+  color: var(--temperature);
+}
+
+.bar--density .bar__label,
+.bar--density .bar__value {
+  color: var(--density);
+}
+
+.bar--magicPower .bar__label,
+.bar--magicPower .bar__value {
+  color: var(--magic-power);
+}
+
+.bar--matched .bar__track {
+  box-shadow: var(--glow-bar);
+}
+
+.bar--matched .bar__marker {
+  background-color: var(--accent);
+}
