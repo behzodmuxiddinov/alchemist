@@ -23,6 +23,8 @@ export default defineConfig([
     },
     rules: {
       '@typescript-eslint/no-explicit-any': 'error',
+      'no-console': 'error',
+      'unicorn/prevent-abbreviations': 'off',
     },
   },
   {
