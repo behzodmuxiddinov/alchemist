@@ -49,11 +49,6 @@
   transition: height var(--duration-slow) var(--easing-bounce);
 }
 
-.cauldron__counter {
-  color: var(--on-bg-muted);
-  font-size: var(--font-size-sm);
-}
-
 .cauldron__list {
   display: flex;
   flex-wrap: wrap;
