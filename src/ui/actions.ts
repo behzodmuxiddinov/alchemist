@@ -1,5 +1,5 @@
 import { RULES } from '@/data/rules';
-import { isPlaying } from '@/state/game-state';
+import { canBrew, isPlaying } from '@/state/game-state';
 import { openDialog } from './dialog';
 import './actions.scss';
 
@@ -27,7 +27,11 @@ function openMenu(onStart: () => void): void {
     });
 }
 
-export function initActions(container: HTMLElement, onStart: () => void): void {
+export function initActions(
+  container: HTMLElement,
+  onStart: () => void,
+  onBrew: () => void,
+): void {
   container.addEventListener('click', (event) => {
     if (!(event.target instanceof HTMLElement)) {
       return;
@@ -47,6 +51,11 @@ export function initActions(container: HTMLElement, onStart: () => void): void {
 
         break;
       }
+      case 'brew': {
+        onBrew();
+
+        break;
+      }
       case 'menu': {
         openMenu(onStart);
 
@@ -59,7 +68,16 @@ export function initActions(container: HTMLElement, onStart: () => void): void {
 
 export function renderActions(container: HTMLElement): void {
   const mainButton = isPlaying()
-    ? ''
+    ? `
+      <button
+        class="button button--primary"
+        type="button"
+        data-action="brew"
+        ${canBrew() ? '' : 'disabled'}
+      >
+        Brew
+      </button>
+    `
     : `
       <button class="button button--primary" type="button" data-action="start">
         Start Game

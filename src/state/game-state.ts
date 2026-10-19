@@ -1,5 +1,6 @@
 import { DEFAULT_DIFFICULTY, DIFFICULTIES } from '@/data/difficulty';
 import { getShelfIngredients } from '@/data/ingredients';
+import { isBrewSuccessful } from '@/logic/brew-check';
 import { calculateCauldron } from '@/logic/calculate-cauldron';
 import { pickRecipe } from '@/logic/recipe-generator';
 import { createStock, decreaseStock, hasStock } from '@/logic/stock';
@@ -17,6 +18,8 @@ export const shelfIngredients = getShelfIngredients(config.shelfSize);
 export const maxCauldronIngredients = config.maxCauldronIngredients;
 
 export const startTime = config.startTime;
+
+export const tolerance = config.tolerance;
 
 export const state = {
   status: 'menu' as GameStatus,
@@ -48,6 +51,33 @@ export function startGame(): void {
   state.shelfStock = createStock(shelfIngredients);
   state.cauldronIngredients = [];
   state.activeRecipe = pickRecipe(DEFAULT_DIFFICULTY);
+}
+
+export function canBrew(): boolean {
+  return isPlaying() && state.cauldronIngredients.length > 0;
+}
+
+export function brew(): void {
+  const recipe = state.activeRecipe;
+
+  if (!recipe || !canBrew()) {
+    return;
+  }
+
+  const isSuccess = isBrewSuccessful(getCauldronValues(), recipe, tolerance);
+
+  if (isSuccess) {
+    state.score += config.scorePerBrew;
+    state.timeLeft = Math.min(
+      state.timeLeft + config.timeBonus,
+      config.startTime,
+    );
+    state.activeRecipe = pickRecipe(DEFAULT_DIFFICULTY);
+  } else {
+    state.lives = Math.max(0, state.lives - 1);
+  }
+
+  state.cauldronIngredients = [];
 }
 
 export function isCauldronFull(): boolean {

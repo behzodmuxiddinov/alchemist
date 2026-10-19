@@ -16,14 +16,7 @@ export function renderCauldron(container: HTMLElement): void {
     )
     .join('');
 
-  const details = isPlaying()
-    ? `
-      <p class="cauldron__counter">
-        Ingredients: ${cauldronIngredients.length} / ${maxCauldronIngredients}
-      </p>
-      <ul class="cauldron__list">${items}</ul>
-    `
-    : '';
+  const details = isPlaying() ? `<ul class="cauldron__list">${items}</ul>` : '';
 
   container.innerHTML = `
     <div class="cauldron">

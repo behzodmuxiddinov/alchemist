@@ -1,10 +1,9 @@
 import {
-  getBarScale,
-  isInRange,
   PARAMETER_KEYS,
-  toPercent,
+  PARAMETER_LABELS,
   type ParameterKey,
-} from '@/logic/bar-scale';
+} from '@/data/parameters';
+import { getBarScale, isInRange, toPercent } from '@/logic/bar-scale';
 import {
   getCauldronValues,
   isPlaying,
@@ -13,12 +12,6 @@ import {
 } from '@/state/game-state';
 import type { ICauldronValues, IRecipeRange } from '@/types/game.types';
 import './bars.scss';
-
-const LABELS: Record<ParameterKey, string> = {
-  temperature: 'Temperature',
-  density: 'Density',
-  magicPower: 'Magic Power',
-};
 
 function renderBar(
   key: ParameterKey,
@@ -33,7 +26,7 @@ function renderBar(
   return `
     <li class="bar bar--${key} ${isInRange(value, target) ? 'bar--matched' : ''}">
       <p class="bar__head">
-        <span class="bar__label">${LABELS[key]}</span>
+        <span class="bar__label">${PARAMETER_LABELS[key]}</span>
         <span class="bar__value">${value}</span>
       </p>
       <div class="bar__track">
