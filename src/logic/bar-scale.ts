@@ -1,14 +1,7 @@
 import { INGREDIENTS } from '@/data/ingredients';
+import type { ParameterKey } from '@/data/parameters';
 import { RECIPES } from '@/data/recipes';
-import type { ICauldronValues, IRecipeRange } from '@/types/game.types';
-
-export type ParameterKey = keyof ICauldronValues;
-
-export const PARAMETER_KEYS: readonly ParameterKey[] = [
-  'temperature',
-  'density',
-  'magicPower',
-];
+import type { IRecipeRange } from '@/types/game.types';
 
 function sumValues(values: readonly number[]): number {
   let total = 0;
