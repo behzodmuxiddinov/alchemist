@@ -17,7 +17,12 @@
     background-color var(--duration-fast) var(--easing-base);
 }
 
-.button:hover {
+.button:disabled {
+  cursor: not-allowed;
+  opacity: var(--opacity-disabled);
+}
+
+.button:hover:not(:disabled) {
   border-color: var(--accent);
   background-color: var(--accent-soft);
 }
@@ -32,7 +37,7 @@
   text-transform: uppercase;
 }
 
-.button--primary:hover {
+.button--primary:hover:not(:disabled) {
   background-color: var(--accent-strong);
   color: var(--on-bg);
 }
