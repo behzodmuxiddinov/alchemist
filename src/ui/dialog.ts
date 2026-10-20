@@ -1,13 +1,19 @@
 import './dialog.scss';
 
-export function openDialog(title: string, content: string): HTMLDialogElement {
+export function openDialog(
+  title: string,
+  content: string,
+  closeLabel = 'Close',
+): HTMLDialogElement {
   const dialog = document.createElement('dialog');
 
   dialog.className = 'dialog';
   dialog.innerHTML = `
     <h2 class="dialog__title">${title}</h2>
     <div class="dialog__content">${content}</div>
-    <button class="button dialog__close" type="button">Close</button>
+    <button class="button button--primary dialog__close" type="button">
+      ${closeLabel}
+    </button>
   `;
 
   dialog.addEventListener('close', () => dialog.remove());
