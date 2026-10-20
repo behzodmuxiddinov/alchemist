@@ -1,7 +1,13 @@
 import { RULES } from '@/data/rules';
-import { canBrew, isPlaying } from '@/state/game-state';
+import { canBrew, isPlaying, isRunning } from '@/state/game-state';
 import { openDialog } from './dialog';
 import './actions.scss';
+
+export interface IActionHandlers {
+  onStart: () => void;
+  onBrew: () => void;
+  onPause: () => void;
+}
 
 function renderRules(): string {
   return RULES.map((rule) => `<p>${rule}</p>`).join('');
@@ -29,8 +35,7 @@ function openMenu(onStart: () => void): void {
 
 export function initActions(
   container: HTMLElement,
-  onStart: () => void,
-  onBrew: () => void,
+  handlers: IActionHandlers,
 ): void {
   container.addEventListener('click', (event) => {
     if (!(event.target instanceof HTMLElement)) {
@@ -42,7 +47,17 @@ export function initActions(
 
     switch (action) {
       case 'start': {
-        onStart();
+        handlers.onStart();
+
+        break;
+      }
+      case 'brew': {
+        handlers.onBrew();
+
+        break;
+      }
+      case 'pause': {
+        handlers.onPause();
 
         break;
       }
@@ -51,13 +66,8 @@ export function initActions(
 
         break;
       }
-      case 'brew': {
-        onBrew();
-
-        break;
-      }
       case 'menu': {
-        openMenu(onStart);
+        openMenu(handlers.onStart);
 
         break;
       }
@@ -67,7 +77,7 @@ export function initActions(
 }
 
 export function renderActions(container: HTMLElement): void {
-  const mainButton = isPlaying()
+  const mainButton = isRunning()
     ? `
       <button
         class="button button--primary"
@@ -84,9 +94,16 @@ export function renderActions(container: HTMLElement): void {
       </button>
     `;
 
+  const pauseButton = isPlaying()
+    ? '<button class="button" type="button" data-action="pause">Pause</button>'
+    : '';
+
   container.innerHTML = `
     <button class="button" type="button" data-action="help">Help</button>
-    ${mainButton}
+    <div class="actions__main">
+      ${pauseButton}
+      ${mainButton}
+    </div>
     <button class="button" type="button" data-action="menu">Menu</button>
   `;
 }
