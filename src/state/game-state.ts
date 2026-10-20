@@ -48,8 +48,46 @@ export function isPlaying(): boolean {
   return state.status === 'playing';
 }
 
+export function isPaused(): boolean {
+  return state.status === 'paused';
+}
+
+export function isRunning(): boolean {
+  return isPlaying() || isPaused();
+}
+
+export function pauseGame(): void {
+  if (!isPlaying()) {
+    return;
+  }
+
+  state.timeLeft = getRemainingSeconds(state.endsAt);
+  state.status = 'paused';
+}
+
+export function resumeGame(): void {
+  if (!isPaused()) {
+    return;
+  }
+
+  state.endsAt = getEndTime(state.timeLeft);
+  state.status = 'playing';
+}
+
+export function exitToMenu(): void {
+  state.status = 'menu';
+  state.score = 0;
+  state.timeLeft = 0;
+  state.lives = 0;
+  state.endsAt = 0;
+  state.shelfStock = {};
+  state.cauldronIngredients = [];
+  state.activeRecipe = undefined;
+  state.gameOverReason = undefined;
+}
+
 export function getVisibleShelf(): readonly IIngredient[] {
-  return isPlaying() ? shelfIngredients : [];
+  return isRunning() ? shelfIngredients : [];
 }
 
 export function startGame(): void {
