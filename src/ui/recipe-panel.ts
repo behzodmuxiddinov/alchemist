@@ -1,11 +1,11 @@
 import { PARAMETER_KEYS, PARAMETER_LABELS } from '@/data/parameters';
-import { isPlaying, maxCauldronIngredients, state } from '@/state/game-state';
+import { isRunning, maxCauldronIngredients, state } from '@/state/game-state';
 import './recipe-panel.scss';
 
 export function renderRecipePanel(container: HTMLElement): void {
   const recipe = state.activeRecipe;
 
-  if (!recipe || !isPlaying()) {
+  if (!recipe || !isRunning()) {
     container.replaceChildren();
 
     return;

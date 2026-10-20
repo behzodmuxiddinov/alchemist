@@ -1,4 +1,4 @@
-import { isPlaying, maxCauldronIngredients, state } from '@/state/game-state';
+import { isRunning, maxCauldronIngredients, state } from '@/state/game-state';
 import './cauldron.scss';
 
 export function renderCauldron(container: HTMLElement): void {
@@ -16,7 +16,7 @@ export function renderCauldron(container: HTMLElement): void {
     )
     .join('');
 
-  const details = isPlaying() ? `<ul class="cauldron__list">${items}</ul>` : '';
+  const details = isRunning() ? `<ul class="cauldron__list">${items}</ul>` : '';
 
   container.innerHTML = `
     <div class="cauldron">

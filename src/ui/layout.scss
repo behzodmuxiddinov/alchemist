@@ -55,6 +55,11 @@
   grid-area: actions;
 }
 
+.game--paused {
+  filter: blur(var(--blur-paused));
+  pointer-events: none;
+}
+
 .panel {
   padding: var(--space-sm);
   border: var(--border-width) solid var(--border);

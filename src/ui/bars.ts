@@ -6,7 +6,7 @@ import {
 import { getBarScale, isInRange, toPercent } from '@/logic/bar-scale';
 import {
   getCauldronValues,
-  isPlaying,
+  isRunning,
   maxCauldronIngredients,
   state,
 } from '@/state/game-state';
@@ -48,7 +48,7 @@ function renderBar(
 export function renderBars(container: HTMLElement): void {
   const recipe = state.activeRecipe;
 
-  if (!recipe || !isPlaying()) {
+  if (!recipe || !isRunning()) {
     container.replaceChildren();
 
     return;

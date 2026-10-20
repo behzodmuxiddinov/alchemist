@@ -31,3 +31,8 @@
 .dialog__close {
   width: 100%;
 }
+
+.dialog__content .button {
+  width: 100%;
+  margin-top: var(--space-xs);
+}
