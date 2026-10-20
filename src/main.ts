@@ -2,7 +2,11 @@ import '@/styles/main.scss';
 import {
   addIngredient,
   brew,
+  exitToMenu,
+  isPaused,
   isPlaying,
+  pauseGame,
+  resumeGame,
   startGame,
   tick,
 } from '@/state/game-state';
@@ -14,6 +18,7 @@ import { renderHud } from '@/ui/hud';
 import { renderBars } from '@/ui/bars';
 import { renderRecipePanel } from '@/ui/recipe-panel';
 import { initGameOver, renderGameOver } from '@/ui/game-over';
+import { openPauseDialog } from '@/ui/pause';
 
 const TICK_INTERVAL = 500;
 
@@ -38,6 +43,7 @@ const recipeElement = getElement('#recipe');
 const barsElement = getElement('#bars');
 const actionsElement = getElement('#actions');
 const overlayElement = getElement('#overlay');
+const gameElement = getElement('.game');
 
 function render(): void {
   renderHud(hudElement);
@@ -47,6 +53,7 @@ function render(): void {
   renderBars(barsElement);
   renderActions(actionsElement);
   renderGameOver(overlayElement);
+  gameElement.classList.toggle('game--paused', isPaused());
 }
 
 function restart(): void {
@@ -59,9 +66,39 @@ initShelf(shelfElement, (id) => {
   render();
 });
 
-initActions(actionsElement, restart, () => {
-  brew();
+function pause(): void {
+  if (!isPlaying()) {
+    return;
+  }
+
+  pauseGame();
   render();
+
+  openPauseDialog(
+    () => {
+      resumeGame();
+      render();
+    },
+    () => {
+      exitToMenu();
+      render();
+    },
+  );
+}
+
+initActions(actionsElement, {
+  onStart: restart,
+  onBrew: () => {
+    brew();
+    render();
+  },
+  onPause: pause,
+});
+
+document.addEventListener('visibilitychange', () => {
+  if (document.hidden) {
+    pause();
+  }
 });
 
 initGameOver(overlayElement, restart);
