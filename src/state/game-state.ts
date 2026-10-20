@@ -3,8 +3,15 @@ import { getShelfIngredients } from '@/data/ingredients';
 import { isBrewSuccessful } from '@/logic/brew-check';
 import { calculateCauldron } from '@/logic/calculate-cauldron';
 import { pickRecipe } from '@/logic/recipe-generator';
-import { createStock, decreaseStock, hasStock } from '@/logic/stock';
+import {
+  createStock,
+  decreaseStock,
+  hasStock,
+  isShelfEmpty,
+} from '@/logic/stock';
+import { addSeconds, getEndTime, getRemainingSeconds } from '@/logic/timer';
 import type {
+  GameOverReason,
   GameStatus,
   ICauldronValues,
   IIngredient,
@@ -29,6 +36,8 @@ export const state = {
   shelfStock: {} as Record<string, number>,
   cauldronIngredients: [] as IIngredient[],
   activeRecipe: undefined as IRecipe | undefined,
+  endsAt: 0,
+  gameOverReason: undefined as GameOverReason | undefined,
 };
 
 export function getCauldronValues(): ICauldronValues {
@@ -47,10 +56,30 @@ export function startGame(): void {
   state.status = 'playing';
   state.score = 0;
   state.timeLeft = config.startTime;
+  state.endsAt = getEndTime(config.startTime);
+  state.gameOverReason = undefined;
   state.lives = config.lives;
   state.shelfStock = createStock(shelfIngredients);
   state.cauldronIngredients = [];
   state.activeRecipe = pickRecipe(DEFAULT_DIFFICULTY);
+}
+
+export function endGame(reason: GameOverReason): void {
+  state.status = 'game-over';
+  state.gameOverReason = reason;
+  state.timeLeft = getRemainingSeconds(state.endsAt);
+}
+
+export function tick(): void {
+  if (!isPlaying()) {
+    return;
+  }
+
+  state.timeLeft = getRemainingSeconds(state.endsAt);
+
+  if (state.timeLeft === 0) {
+    endGame('time');
+  }
 }
 
 export function canBrew(): boolean {
@@ -68,16 +97,23 @@ export function brew(): void {
 
   if (isSuccess) {
     state.score += config.scorePerBrew;
-    state.timeLeft = Math.min(
-      state.timeLeft + config.timeBonus,
-      config.startTime,
+    state.endsAt = Math.min(
+      addSeconds(state.endsAt, config.timeBonus),
+      getEndTime(config.startTime),
     );
+    state.timeLeft = getRemainingSeconds(state.endsAt);
     state.activeRecipe = pickRecipe(DEFAULT_DIFFICULTY);
   } else {
     state.lives = Math.max(0, state.lives - 1);
   }
 
   state.cauldronIngredients = [];
+
+  if (state.lives === 0) {
+    endGame('lives');
+  } else if (isShelfEmpty(state.shelfStock)) {
+    endGame('ingredients');
+  }
 }
 
 export function isCauldronFull(): boolean {
