@@ -1,0 +1,39 @@
+.game__overlay {
+  position: fixed;
+  z-index: var(--z-overlay);
+  display: grid;
+  inset: 0;
+  place-items: center;
+  padding: var(--space-md);
+  background-color: var(--overlay);
+}
+
+.game-over {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-sm);
+  width: 100%;
+  max-width: var(--dialog-width);
+  padding: var(--space-xl) var(--space-lg);
+  border: var(--border-width) solid var(--border);
+  border-radius: var(--radius-lg);
+  background-color: var(--surface);
+  box-shadow: var(--shadow-panel);
+  text-align: center;
+}
+
+.game-over__title {
+  color: var(--danger);
+  font-size: var(--font-size-xl);
+}
+
+.game-over__reason {
+  color: var(--on-bg-muted);
+}
+
+.game-over__value {
+  color: var(--accent);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+}

@@ -9,5 +9,6 @@ export const GAME_LAYOUT = `
     <section class="game__recipe panel" id="recipe"></section>
     <section class="game__bars" id="bars"></section>
     <footer class="game__actions" id="actions"></footer>
+    <div class="game__overlay" id="overlay"></div>
   </div>
 `;
