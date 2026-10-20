@@ -2,6 +2,8 @@ import type { Difficulty, IDifficultyConfig } from '@/types/game.types';
 
 export const DEFAULT_DIFFICULTY: Difficulty = 'medium';
 
+export const LOW_TIME_SECONDS = 15;
+
 export const DIFFICULTIES: Record<Difficulty, IDifficultyConfig> = {
   easy: {
     shelfSize: 4,

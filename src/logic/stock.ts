@@ -24,6 +24,10 @@ export function hasStock(stock: Record<string, number>, id: string): boolean {
   return getStock(stock, id) > 0;
 }
 
+export function isShelfEmpty(stock: Record<string, number>): boolean {
+  return Object.values(stock).every((value) => value === 0);
+}
+
 export function decreaseStock(
   stock: Record<string, number>,
   id: string,
