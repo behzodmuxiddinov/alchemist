@@ -2,6 +2,8 @@ export type Difficulty = 'easy' | 'medium' | 'hard';
 
 export type GameStatus = 'menu' | 'playing' | 'paused' | 'game-over';
 
+export type GameOverReason = 'time' | 'lives' | 'ingredients';
+
 export interface IIngredient {
   id: string;
   name: string;
