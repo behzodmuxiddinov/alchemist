@@ -1,6 +1,7 @@
 import { RULES } from '@/data/rules';
 import { canBrew, isPlaying, isRunning } from '@/state/game-state';
 import { openDialog } from './dialog';
+import { openLeaderboard } from './leaderboard';
 import './actions.scss';
 
 export interface IActionHandlers {
@@ -19,6 +20,9 @@ function renderMenu(): string {
     <button class="button button--primary" type="button" data-action="new-game">
       New Game
     </button>
+    <button class="button" type="button" data-action="leaderboard">
+      Leaderboard
+    </button>
   `;
 }
 
@@ -30,6 +34,13 @@ function openMenu(onStart: () => void): void {
     ?.addEventListener('click', () => {
       dialog.close();
       onStart();
+    });
+
+  dialog
+    .querySelector('[data-action="leaderboard"]')
+    ?.addEventListener('click', () => {
+      dialog.close();
+      openLeaderboard();
     });
 }
 
