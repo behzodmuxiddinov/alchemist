@@ -13,6 +13,12 @@ export interface IIngredient {
   magicPower: number;
 }
 
+export interface ILeaderboardEntry {
+  name: string;
+  score: number;
+  createdAt: number;
+}
+
 export interface IDifficultyConfig {
   shelfSize: number;
   maxCauldronIngredients: number;

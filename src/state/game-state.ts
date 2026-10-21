@@ -38,6 +38,7 @@ export const state = {
   activeRecipe: undefined as IRecipe | undefined,
   endsAt: 0,
   gameOverReason: undefined as GameOverReason | undefined,
+  isResultSaved: false,
 };
 
 export function getCauldronValues(): ICauldronValues {
@@ -84,6 +85,7 @@ export function exitToMenu(): void {
   state.cauldronIngredients = [];
   state.activeRecipe = undefined;
   state.gameOverReason = undefined;
+  state.isResultSaved = false;
 }
 
 export function getVisibleShelf(): readonly IIngredient[] {
@@ -96,6 +98,7 @@ export function startGame(): void {
   state.timeLeft = config.startTime;
   state.endsAt = getEndTime(config.startTime);
   state.gameOverReason = undefined;
+  state.isResultSaved = false;
   state.lives = config.lives;
   state.shelfStock = createStock(shelfIngredients);
   state.cauldronIngredients = [];

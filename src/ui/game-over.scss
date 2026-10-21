@@ -37,3 +37,39 @@
   font-size: var(--font-size-lg);
   font-weight: var(--font-weight-bold);
 }
+
+.game-over__form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2xs);
+  width: 100%;
+}
+
+.game-over__label {
+  color: var(--accent);
+  font-size: var(--font-size-sm);
+}
+
+.game-over__input {
+  padding: var(--space-xs);
+  border: var(--border-width) solid var(--border);
+  border-radius: var(--radius-sm);
+  background-color: var(--surface-raised);
+  color: var(--on-bg);
+}
+
+.game-over__error {
+  color: var(--danger);
+  font-size: var(--font-size-xs);
+}
+
+.game-over__saved {
+  color: var(--success);
+  font-size: var(--font-size-sm);
+}
+
+.game-over__actions {
+  display: flex;
+  gap: var(--space-sm);
+  justify-content: center;
+}
