@@ -12,10 +12,13 @@ Task description: [game-alchemists-cauldron](https://github.com/rolling-scopes-s
 
 | Stage                  | Scope                                                        | Status      |
 | ---------------------- | ------------------------------------------------------------ | ----------- |
-| 🟣 Precondition 1      | Repository, tooling, folder structure, quality checks        | in progress |
-| 🟢 Level 1 — Basic     | Shelf, cauldron, bars, recipes, brew, timer, lives, Top-10   | not started |
+| 🟣 Precondition 1      | Repository, tooling, folder structure, quality checks        | done        |
+| 🟢 Level 1 — Basic     | Shelf, cauldron, bars, recipes, brew, timer, lives, Top-10   | done        |
 | 🟡 Level 2 — Extended  | Difficulty selection, auto-save and continue                 | not started |
 | 🔴 Level 3 — Full game | Drag & drop, tooltip, reactions, Pour Out, keyboard, effects | not started |
+
+Level 1 is playable end to end on the fixed Medium rule set: 6 ingredients on the shelf,
+4 of them in the cauldron, 150 seconds, tolerance ±8, 3 lives and 200 score per brew.
 
 ## How to play
 
@@ -25,7 +28,8 @@ Task description: [game-alchemists-cauldron](https://github.com/rolling-scopes-s
 4. Press **Brew** to check the mix. A successful brew gives score and bonus time, a failed one costs a life.
 5. The game ends when the time runs out, the lives run out, or the ingredients run out.
 
-Gameplay is added story by story, so parts of this flow are not available yet.
+**Pause** stops the run and the game also pauses when the browser tab is hidden. A top-10
+score opens a name prompt and the result is kept in the leaderboard, reachable from the menu.
 
 ## Getting started
 
@@ -108,3 +112,8 @@ Layout is mobile first: base rules target the smallest screen and a breakpoint m
 Work is done in story branches: feature branches are created from `story-N`, merged back
 into it with a Pull Request, and the finished story is offered as an unmerged Pull Request
 into the previous branch.
+
+| Branch    | Contains                       |
+| --------- | ------------------------------ |
+| `story-1` | Precondition 1 — project setup |
+| `story-2` | Level 1 — the basic game       |
