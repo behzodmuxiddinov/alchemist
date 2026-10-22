@@ -1,0 +1,70 @@
+.game__hud {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-sm);
+  padding: var(--space-xs) var(--space-sm);
+  border: var(--border-width) solid var(--border);
+  border-radius: var(--radius-md);
+  background-color: var(--surface);
+  font-size: var(--font-size-sm);
+}
+
+.hud__value {
+  color: var(--accent);
+  font-weight: var(--font-weight-bold);
+}
+
+.hud__timer {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-3xs);
+  max-width: var(--timer-width);
+}
+
+.hud__time-track {
+  width: 100%;
+  height: var(--timer-height);
+  border-radius: var(--radius-sm);
+  background-color: var(--surface-raised);
+}
+
+.hud__time-fill {
+  display: block;
+  width: var(--fill);
+  height: 100%;
+  border-radius: var(--radius-sm);
+  background-color: var(--accent);
+}
+
+.hud__timer--low .hud__value {
+  color: var(--danger);
+}
+
+.hud__timer--low .hud__time-fill {
+  background-color: var(--danger);
+  animation: time-pulse var(--duration-slow) var(--easing-base) infinite
+    alternate;
+}
+
+.hud__lives {
+  display: flex;
+  gap: var(--space-3xs);
+  min-height: var(--font-size-md);
+}
+
+.hud__life {
+  color: var(--danger);
+}
+
+@keyframes time-pulse {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0.3;
+  }
+}

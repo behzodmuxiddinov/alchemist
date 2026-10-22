@@ -1,0 +1,74 @@
+.cauldron {
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.cauldron__pot {
+  position: relative;
+  width: 100%;
+  max-width: var(--cauldron-width);
+  margin-top: var(--space-sm);
+}
+
+.cauldron__bowl {
+  display: flex;
+  overflow: hidden;
+  height: var(--cauldron-height);
+  align-items: flex-end;
+  border: var(--border-width-thick) solid var(--border);
+  border-radius: var(--radius-sm) var(--radius-sm) 50% 50% / var(--radius-sm)
+    var(--radius-sm) 60% 60%;
+  background: radial-gradient(
+    circle at 50% 10%,
+    var(--surface-raised),
+    var(--surface)
+  );
+  box-shadow: var(--shadow-panel);
+}
+
+.cauldron__rim {
+  position: absolute;
+  z-index: var(--z-base);
+  top: calc(var(--cauldron-rim-height) / -2);
+  right: calc(var(--cauldron-rim-offset) * -1);
+  left: calc(var(--cauldron-rim-offset) * -1);
+  height: var(--cauldron-rim-height);
+  border: var(--border-width-thick) solid var(--border);
+  border-radius: var(--radius-round);
+  background-color: var(--surface-raised);
+}
+
+.cauldron__liquid {
+  width: 100%;
+  height: calc(var(--fill) * 75%);
+  background: linear-gradient(to top, var(--accent-strong), var(--accent));
+  box-shadow: var(--glow-accent);
+  transition: height var(--duration-slow) var(--easing-bounce);
+}
+
+.cauldron__list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2xs);
+  justify-content: center;
+}
+
+.cauldron__item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2xs);
+  padding: var(--space-3xs) var(--space-xs);
+  border: var(--border-width) solid var(--border);
+  border-radius: var(--radius-round);
+  background-color: var(--surface-raised);
+  font-size: var(--font-size-xs);
+}
+
+.cauldron__icon {
+  width: var(--icon-sm);
+  height: var(--icon-sm);
+  color: var(--accent);
+}

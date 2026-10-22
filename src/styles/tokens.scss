@@ -2,26 +2,36 @@
   --white: #ffffff;
   --black: #000000;
 
-  --bg: #1b1030;
-  --surface: #2a1a4a;
-  --surface-raised: #37245e;
-  --border: #4a3277;
-  --on-bg: #f3eaff;
-  --on-bg-muted: #b6a3d9;
-  --accent: #9b5cff;
-  --accent-strong: #6b32c9;
-  --on-accent: #ffffff;
+  --bg: #0f0d14;
+  --surface: #1a1726;
+  --surface-raised: #262134;
+  --border: #3a3350;
+  --on-bg: #ece7f5;
+  --on-bg-muted: #a79fbd;
+  --accent: #8ede3f;
+  --accent-strong: #4a7a1e;
+  --accent-soft: rgb(142 222 63 / 15%);
+  --accent-zone: rgb(142 222 63 / 32%);
+  --on-accent: #0f0d14;
   --success: #45d9a0;
   --danger: #ff5c7a;
   --warning: #ffc24b;
+  --warning-soft: rgb(255 194 75 / 18%);
 
-  --temperature: #ff7a45;
+  --temperature: #ff5c3b;
+  --temperature-soft: rgb(255 92 59 / 18%);
   --density: #4bb6ff;
+  --density-soft: rgb(75 182 255 / 18%);
   --magic-power: #c07bff;
+  --magic-power-soft: rgb(192 123 255 / 18%);
 
-  --overlay: rgb(12 6 24 / 70%);
+  --overlay: rgb(8 6 12 / 75%);
   --shadow-panel: 0 8px 24px rgb(0 0 0 / 35%);
   --shadow-card: 0 2px 8px rgb(0 0 0 / 25%);
+  --glow-accent: 0 0 32px var(--accent);
+  --glow-bar: 0 0 8px var(--accent);
+  --glow-title: 0 0 16px var(--accent-soft);
+  --opacity-disabled: 0.45;
 
   --space-3xs: 2px;
   --space-2xs: 4px;
@@ -33,6 +43,7 @@
   --space-2xl: 48px;
 
   --border-width: 1px;
+  --border-width-thick: 3px;
   --focus-ring-width: 2px;
   --focus-ring-offset: 2px;
 
@@ -53,12 +64,29 @@
   --font-weight-bold: 700;
   --line-height-tight: 1.2;
   --line-height-base: 1.5;
+  --letter-spacing-wide: 1px;
+  --letter-spacing-widest: 2px;
 
   --duration-fast: 120ms;
   --duration-base: 240ms;
   --duration-slow: 480ms;
   --easing-base: ease-in-out;
   --easing-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  --icon-sm: 18px;
+  --icon-md: 36px;
+  --badge-size: 28px;
+  --bar-height: 14px;
+  --blur-paused: 6px;
+  --timer-width: 280px;
+  --timer-height: 6px;
+  --bar-marker-size: 14px;
+  --cauldron-width: 220px;
+  --cauldron-height: 160px;
+  --cauldron-rim-height: 18px;
+  --cauldron-rim-offset: 14px;
+  --dialog-width: 420px;
+  --leaderboard-rank-width: 20px;
 
   --layout-min-width: 375px;
   --layout-max-width: 1920px;

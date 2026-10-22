@@ -2,6 +2,8 @@ export type Difficulty = 'easy' | 'medium' | 'hard';
 
 export type GameStatus = 'menu' | 'playing' | 'paused' | 'game-over';
 
+export type GameOverReason = 'time' | 'lives' | 'ingredients';
+
 export interface IIngredient {
   id: string;
   name: string;
@@ -9,6 +11,23 @@ export interface IIngredient {
   temperature: number;
   density: number;
   magicPower: number;
+}
+
+export interface ILeaderboardEntry {
+  name: string;
+  score: number;
+  createdAt: number;
+}
+
+export interface IDifficultyConfig {
+  shelfSize: number;
+  maxCauldronIngredients: number;
+  startTime: number;
+  tolerance: number;
+  lives: number;
+  scorePerBrew: number;
+  timeBonus: number;
+  reactionCount: number;
 }
 
 export interface IRecipeRange {
