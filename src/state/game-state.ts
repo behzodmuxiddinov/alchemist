@@ -10,26 +10,20 @@ import {
   isShelfEmpty,
 } from '@/logic/stock';
 import { addSeconds, getEndTime, getRemainingSeconds } from '@/logic/timer';
+import { readDifficulty, writeDifficulty } from '@/storage/difficulty';
 import type {
+  Difficulty,
   GameOverReason,
   GameStatus,
   ICauldronValues,
+  IDifficultyConfig,
   IIngredient,
   IRecipe,
 } from '@/types/game.types';
 
-const config = DIFFICULTIES[DEFAULT_DIFFICULTY];
-
-export const shelfIngredients = getShelfIngredients(config.shelfSize);
-
-export const maxCauldronIngredients = config.maxCauldronIngredients;
-
-export const startTime = config.startTime;
-
-export const tolerance = config.tolerance;
-
 export const state = {
   status: 'menu' as GameStatus,
+  difficulty: readDifficulty() ?? DEFAULT_DIFFICULTY,
   score: 0,
   timeLeft: 0,
   lives: 0,
@@ -40,6 +34,22 @@ export const state = {
   gameOverReason: undefined as GameOverReason | undefined,
   isResultSaved: false,
 };
+
+export function getConfig(): IDifficultyConfig {
+  return DIFFICULTIES[state.difficulty];
+}
+
+export function getShelf(): readonly IIngredient[] {
+  return getShelfIngredients(getConfig().shelfSize);
+}
+
+export function getMaxCauldronIngredients(): number {
+  return getConfig().maxCauldronIngredients;
+}
+
+export function getStartTime(): number {
+  return getConfig().startTime;
+}
 
 export function getCauldronValues(): ICauldronValues {
   return calculateCauldron(state.cauldronIngredients);
@@ -89,10 +99,25 @@ export function exitToMenu(): void {
 }
 
 export function getVisibleShelf(): readonly IIngredient[] {
-  return isRunning() ? shelfIngredients : [];
+  return isRunning() ? getShelf() : [];
+}
+
+export function canChangeDifficulty(): boolean {
+  return !isRunning();
+}
+
+export function setDifficulty(difficulty: Difficulty): void {
+  if (!canChangeDifficulty()) {
+    return;
+  }
+
+  state.difficulty = difficulty;
+  writeDifficulty(difficulty);
 }
 
 export function startGame(): void {
+  const config = getConfig();
+
   state.status = 'playing';
   state.score = 0;
   state.timeLeft = config.startTime;
@@ -100,9 +125,9 @@ export function startGame(): void {
   state.gameOverReason = undefined;
   state.isResultSaved = false;
   state.lives = config.lives;
-  state.shelfStock = createStock(shelfIngredients);
+  state.shelfStock = createStock(getShelf());
   state.cauldronIngredients = [];
-  state.activeRecipe = pickRecipe(DEFAULT_DIFFICULTY);
+  state.activeRecipe = pickRecipe(state.difficulty);
 }
 
 export function endGame(reason: GameOverReason): void {
@@ -134,7 +159,12 @@ export function brew(): void {
     return;
   }
 
-  const isSuccess = isBrewSuccessful(getCauldronValues(), recipe, tolerance);
+  const config = getConfig();
+  const isSuccess = isBrewSuccessful(
+    getCauldronValues(),
+    recipe,
+    config.tolerance,
+  );
 
   if (isSuccess) {
     state.score += config.scorePerBrew;
@@ -143,7 +173,7 @@ export function brew(): void {
       getEndTime(config.startTime),
     );
     state.timeLeft = getRemainingSeconds(state.endsAt);
-    state.activeRecipe = pickRecipe(DEFAULT_DIFFICULTY);
+    state.activeRecipe = pickRecipe(state.difficulty);
   } else {
     state.lives = Math.max(0, state.lives - 1);
   }
@@ -158,11 +188,11 @@ export function brew(): void {
 }
 
 export function isCauldronFull(): boolean {
-  return state.cauldronIngredients.length >= maxCauldronIngredients;
+  return state.cauldronIngredients.length >= getMaxCauldronIngredients();
 }
 
 export function addIngredient(id: string): void {
-  const ingredient = shelfIngredients.find((item) => item.id === id);
+  const ingredient = getShelf().find((item) => item.id === id);
 
   if (
     !ingredient ||

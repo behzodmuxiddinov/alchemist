@@ -93,6 +93,7 @@ initActions(actionsElement, {
     render();
   },
   onPause: pause,
+  onRender: render,
 });
 
 document.addEventListener('visibilitychange', () => {

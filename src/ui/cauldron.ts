@@ -1,9 +1,13 @@
-import { isRunning, maxCauldronIngredients, state } from '@/state/game-state';
+import {
+  getMaxCauldronIngredients,
+  isRunning,
+  state,
+} from '@/state/game-state';
 import './cauldron.scss';
 
 export function renderCauldron(container: HTMLElement): void {
   const { cauldronIngredients } = state;
-  const fillLevel = cauldronIngredients.length / maxCauldronIngredients;
+  const fillLevel = cauldronIngredients.length / getMaxCauldronIngredients();
 
   const items = cauldronIngredients
     .map(

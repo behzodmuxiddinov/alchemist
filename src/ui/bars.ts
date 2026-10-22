@@ -6,8 +6,8 @@ import {
 import { getBarScale, isInRange, toPercent } from '@/logic/bar-scale';
 import {
   getCauldronValues,
+  getMaxCauldronIngredients,
   isRunning,
-  maxCauldronIngredients,
   state,
 } from '@/state/game-state';
 import type { ICauldronValues, IRecipeRange } from '@/types/game.types';
@@ -18,7 +18,7 @@ function renderBar(
   values: ICauldronValues,
   target: IRecipeRange,
 ): string {
-  const scale = getBarScale(key, maxCauldronIngredients);
+  const scale = getBarScale(key, getMaxCauldronIngredients());
   const value = values[key];
   const zoneStart = toPercent(target.min, scale);
   const zoneEnd = toPercent(target.max, scale);
