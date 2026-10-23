@@ -1,11 +1,17 @@
 import { RULES } from '@/data/rules';
-import { canBrew, isPlaying, isRunning } from '@/state/game-state';
+import {
+  canBrew,
+  hasSavedGame,
+  isPlaying,
+  isRunning,
+} from '@/state/game-state';
 import { openDialog } from './dialog';
 import { openMenu } from './menu';
 import './actions.scss';
 
 export interface IActionHandlers {
   onStart: () => void;
+  onContinue: () => void;
   onBrew: () => void;
   onPause: () => void;
   onRender: () => void;
@@ -33,6 +39,11 @@ export function initActions(
 
         break;
       }
+      case 'continue': {
+        handlers.onContinue();
+
+        break;
+      }
       case 'brew': {
         handlers.onBrew();
 
@@ -49,7 +60,11 @@ export function initActions(
         break;
       }
       case 'menu': {
-        openMenu(handlers.onStart, handlers.onRender);
+        openMenu({
+          onStart: handlers.onStart,
+          onContinue: handlers.onContinue,
+          onRender: handlers.onRender,
+        });
 
         break;
       }
@@ -80,10 +95,16 @@ export function renderActions(container: HTMLElement): void {
     ? '<button class="button" type="button" data-action="pause">Pause</button>'
     : '';
 
+  const continueButton =
+    !isRunning() && hasSavedGame()
+      ? '<button class="button" type="button" data-action="continue">Continue</button>'
+      : '';
+
   container.innerHTML = `
     <button class="button" type="button" data-action="help">Help</button>
     <div class="actions__main">
       ${pauseButton}
+      ${continueButton}
       ${mainButton}
     </div>
     <button class="button" type="button" data-action="menu">Menu</button>

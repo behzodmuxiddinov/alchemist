@@ -4,7 +4,12 @@ import {
   DIFFICULTY_ORDER,
   isDifficulty,
 } from '@/data/difficulty';
-import { canChangeDifficulty, setDifficulty, state } from '@/state/game-state';
+import {
+  canChangeDifficulty,
+  hasSavedGame,
+  setDifficulty,
+  state,
+} from '@/state/game-state';
 import type { Difficulty } from '@/types/game.types';
 import { openDialog } from './dialog';
 import { openLeaderboard } from './leaderboard';
@@ -56,9 +61,22 @@ function renderDifficulty(): string {
   `;
 }
 
+function renderContinue(): string {
+  if (!hasSavedGame()) {
+    return '';
+  }
+
+  return `
+    <button class="button" type="button" data-action="continue">
+      Continue Game
+    </button>
+  `;
+}
+
 function renderMenu(): string {
   return `
     ${renderDifficulty()}
+    ${renderContinue()}
     <button class="button button--primary" type="button" data-action="new-game">
       New Game
     </button>
@@ -68,7 +86,13 @@ function renderMenu(): string {
   `;
 }
 
-export function openMenu(onStart: () => void, onRender: () => void): void {
+export interface IMenuHandlers {
+  onStart: () => void;
+  onContinue: () => void;
+  onRender: () => void;
+}
+
+export function openMenu(handlers: IMenuHandlers): void {
   const dialog = openDialog('Menu', renderMenu());
   const content = dialog.querySelector('.dialog__content');
 
@@ -86,14 +110,20 @@ export function openMenu(onStart: () => void, onRender: () => void): void {
         if (content && isDifficulty(difficulty)) {
           setDifficulty(difficulty);
           content.innerHTML = renderMenu();
-          onRender();
+          handlers.onRender();
         }
+
+        break;
+      }
+      case 'continue': {
+        dialog.close();
+        handlers.onContinue();
 
         break;
       }
       case 'new-game': {
         dialog.close();
-        onStart();
+        handlers.onStart();
 
         break;
       }
@@ -103,7 +133,6 @@ export function openMenu(onStart: () => void, onRender: () => void): void {
 
         break;
       }
-      // No default
     }
   });
 }
