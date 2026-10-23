@@ -76,6 +76,7 @@
   --icon-sm: 18px;
   --icon-md: 36px;
   --badge-size: 28px;
+  --card-min-width: 100%;
   --bar-height: 14px;
   --blur-paused: 6px;
   --timer-width: 280px;
@@ -97,4 +98,22 @@
   --z-overlay: 100;
   --z-dialog: 200;
   --z-tooltip: 300;
+}
+
+@media (height <= 900px) {
+  :root {
+    --space-xs: 6px;
+    --space-sm: 10px;
+    --space-md: 10px;
+    --space-lg: 12px;
+    --icon-md: 28px;
+    --badge-size: 24px;
+    --card-min-width: 150px;
+    --font-size-xs: 11px;
+    --font-size-sm: 13px;
+    --font-size-xl: 24px;
+    --font-size-2xl: 30px;
+    --cauldron-height: 130px;
+    --bar-height: 12px;
+  }
 }
