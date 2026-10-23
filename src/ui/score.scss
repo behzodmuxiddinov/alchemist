@@ -1,0 +1,19 @@
+.game__score {
+  text-align: center;
+}
+
+.score__label {
+  color: var(--on-bg-muted);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: var(--letter-spacing-widest);
+  text-transform: uppercase;
+}
+
+.score__value {
+  color: var(--accent);
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-tight);
+  text-shadow: var(--glow-title);
+}

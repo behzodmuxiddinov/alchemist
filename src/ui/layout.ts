@@ -5,7 +5,10 @@ export const GAME_LAYOUT = `
     <header class="game__hud" id="hud"></header>
     <h1 class="game__title">Alchemist's Cauldron</h1>
     <section class="game__shelf panel" id="shelf"></section>
-    <section class="game__cauldron" id="cauldron"></section>
+    <div class="game__center">
+      <section class="game__score" id="score"></section>
+      <section id="cauldron"></section>
+    </div>
     <section class="game__recipe panel" id="recipe"></section>
     <section class="game__bars" id="bars"></section>
     <footer class="game__actions" id="actions"></footer>

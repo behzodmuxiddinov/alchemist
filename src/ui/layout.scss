@@ -6,7 +6,7 @@
   grid-template-areas:
     'hud'
     'title'
-    'cauldron'
+    'center'
     'shelf'
     'recipe'
     'bars'
@@ -17,7 +17,7 @@
     grid-template-areas:
       'hud hud hud'
       'title title title'
-      'shelf cauldron recipe'
+      'shelf center recipe'
       'bars bars bars'
       'actions actions actions';
   }
@@ -35,12 +35,19 @@
   text-shadow: var(--glow-title);
 }
 
-.game__shelf {
-  grid-area: shelf;
+.game__center {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  grid-area: center;
 }
 
-.game__cauldron {
-  grid-area: cauldron;
+.game__center > :empty {
+  display: none;
+}
+
+.game__shelf {
+  grid-area: shelf;
 }
 
 .game__recipe {
