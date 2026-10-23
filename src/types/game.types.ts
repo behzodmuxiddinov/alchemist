@@ -62,6 +62,18 @@ export interface IGameState {
   lastReactionId?: string | null;
 }
 
+export interface ISavedGame {
+  status: 'playing' | 'paused';
+  difficulty: Difficulty;
+  score: number;
+  timeLeft: number;
+  lives: number;
+  recipeId: string;
+  cauldronIngredientIds: string[];
+  shelfStock: Record<string, number>;
+  savedAt: number;
+}
+
 export interface IReaction {
   id: string;
   name: string;

@@ -75,6 +75,10 @@ export const INGREDIENTS: readonly IIngredient[] = [
   },
 ];
 
+export function findIngredient(id: string): IIngredient | undefined {
+  return INGREDIENTS.find((ingredient) => ingredient.id === id);
+}
+
 export function getShelfIngredients(shelfSize: number): IIngredient[] {
   return INGREDIENTS.slice(0, shelfSize);
 }
