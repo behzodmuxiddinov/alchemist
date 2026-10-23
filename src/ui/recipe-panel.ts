@@ -1,5 +1,9 @@
 import { PARAMETER_KEYS, PARAMETER_LABELS } from '@/data/parameters';
-import { isRunning, maxCauldronIngredients, state } from '@/state/game-state';
+import {
+  getMaxCauldronIngredients,
+  isRunning,
+  state,
+} from '@/state/game-state';
 import './recipe-panel.scss';
 
 export function renderRecipePanel(container: HTMLElement): void {
@@ -12,7 +16,8 @@ export function renderRecipePanel(container: HTMLElement): void {
   }
 
   const added = state.cauldronIngredients.length;
-  const isFull = added >= maxCauldronIngredients;
+  const maxIngredients = getMaxCauldronIngredients();
+  const isFull = added >= maxIngredients;
 
   const targets = PARAMETER_KEYS.map(
     (key) => `
@@ -27,7 +32,7 @@ export function renderRecipePanel(container: HTMLElement): void {
     <h2 class="recipe__title">Current Recipe</h2>
     <p class="recipe__name">${recipe.name}</p>
     <p class="recipe__counter ${isFull ? 'recipe__counter--full' : ''}">
-      Ingredients: ${added} / ${maxCauldronIngredients}
+      Ingredients: ${added} / ${maxIngredients}
     </p>
     <ul class="recipe__targets">${targets}</ul>
   `;

@@ -1,6 +1,7 @@
 .game__hud {
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
   justify-content: space-between;
   gap: var(--space-sm);
   padding: var(--space-xs) var(--space-sm);
@@ -8,6 +9,16 @@
   border-radius: var(--radius-md);
   background-color: var(--surface);
   font-size: var(--font-size-sm);
+}
+
+.hud__difficulty {
+  padding: var(--space-3xs) var(--space-xs);
+  border: var(--border-width) solid var(--border);
+  border-radius: var(--radius-sm);
+  color: var(--accent);
+  font-size: var(--font-size-xs);
+  letter-spacing: var(--letter-spacing-wide);
+  text-transform: uppercase;
 }
 
 .hud__value {

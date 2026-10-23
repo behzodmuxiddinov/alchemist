@@ -2,6 +2,25 @@ import type { Difficulty, IDifficultyConfig } from '@/types/game.types';
 
 export const DEFAULT_DIFFICULTY: Difficulty = 'medium';
 
+export const DIFFICULTY_ORDER: readonly Difficulty[] = [
+  'easy',
+  'medium',
+  'hard',
+];
+
+export const DIFFICULTY_LABELS: Record<Difficulty, string> = {
+  easy: 'Easy',
+  medium: 'Medium',
+  hard: 'Hard',
+};
+
+export function isDifficulty(value: unknown): value is Difficulty {
+  return (
+    typeof value === 'string' &&
+    (DIFFICULTY_ORDER as readonly string[]).includes(value)
+  );
+}
+
 export const LOW_TIME_SECONDS = 15;
 
 export const DIFFICULTIES: Record<Difficulty, IDifficultyConfig> = {

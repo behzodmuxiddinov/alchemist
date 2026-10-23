@@ -9,9 +9,9 @@
 }
 
 .shelf__list {
-  display: flex;
-  flex-direction: column;
+  display: grid;
   gap: var(--space-2xs);
+  grid-template-columns: repeat(auto-fill, minmax(var(--card-min-width), 1fr));
 }
 
 .card {
