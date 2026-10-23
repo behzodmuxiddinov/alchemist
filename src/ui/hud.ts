@@ -10,7 +10,6 @@ export function renderHud(container: HTMLElement): void {
 
   container.innerHTML = `
     <p class="hud__difficulty">${DIFFICULTY_LABELS[state.difficulty]}</p>
-    <p class="hud__item">Score: <span class="hud__value">${state.score}</span></p>
     <div class="hud__timer ${isLow ? 'hud__timer--low' : ''}">
       <p class="hud__item">Time: <span class="hud__value">${formatTime(state.timeLeft)}</span></p>
       <span class="hud__time-track">

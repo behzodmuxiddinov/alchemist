@@ -166,3 +166,7 @@ export const RECIPES: readonly IRecipe[] = [
     magicPower: range(37, 47),
   },
 ];
+
+export function findRecipe(id: string): IRecipe | undefined {
+  return RECIPES.find((recipe) => recipe.id === id);
+}
