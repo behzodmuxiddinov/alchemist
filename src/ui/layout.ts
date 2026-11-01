@@ -4,7 +4,10 @@ import './layout.scss';
 export function getGameLayout(): string {
   return `
     <div class="game">
-      <header class="game__hud" id="hud"></header>
+      <header class="game__hud">
+        <div class="hud" id="hud"></div>
+        <div id="avatar"></div>
+      </header>
       <h1 class="game__title">${t('app.title')}</h1>
       <section class="game__shelf panel" id="shelf"></section>
       <div class="game__center">

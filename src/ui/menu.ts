@@ -18,7 +18,9 @@ import {
   setDifficulty,
   state,
 } from '@/state/game-state';
+import { isSignedIn } from '@/state/session';
 import type { Difficulty } from '@/types/game.types';
+import { openAuthDialog } from './auth';
 import { openDialog } from './dialog';
 import { openLeaderboard } from './leaderboard';
 import './menu.scss';
@@ -95,6 +97,18 @@ function renderDifficulty(): string {
   `;
 }
 
+function renderSession(): string {
+  if (isSignedIn()) {
+    return '';
+  }
+
+  return `
+    <button class="button" type="button" data-action="sign-in">
+      ${t('menu.signIn')}
+    </button>
+  `;
+}
+
 function renderContinue(): string {
   if (!hasSavedGame()) {
     return '';
@@ -109,6 +123,7 @@ function renderContinue(): string {
 
 function renderMenu(): string {
   return `
+    ${renderSession()}
     ${renderLanguage()}
     ${renderDifficulty()}
     ${renderContinue()}
@@ -168,6 +183,12 @@ export function openMenu(handlers: IMenuHandlers): void {
       case 'new-game': {
         dialog.close();
         handlers.onStart();
+
+        break;
+      }
+      case 'sign-in': {
+        dialog.close();
+        openAuthDialog(handlers.onRender);
 
         break;
       }

@@ -22,6 +22,9 @@ import { renderBars } from '@/ui/bars';
 import { renderRecipePanel } from '@/ui/recipe-panel';
 import { initGameOver, renderGameOver } from '@/ui/game-over';
 import { openPauseDialog } from '@/ui/pause';
+import { initAvatar, renderAvatar } from '@/ui/avatar';
+import { openProfile } from '@/ui/profile';
+import { initSession } from '@/state/session';
 
 const TICK_INTERVAL = 500;
 
@@ -49,11 +52,13 @@ const barsElement = getElement('#bars');
 const actionsElement = getElement('#actions');
 const overlayElement = getElement('#overlay');
 const gameElement = getElement('.game');
+const avatarElement = getElement('#avatar');
 const titleElement = getElement('.game__title');
 
 function render(): void {
   titleElement.textContent = t('app.title');
   renderHud(hudElement);
+  renderAvatar(avatarElement);
   renderScore(scoreElement);
   renderShelf(shelfElement);
   renderCauldron(cauldronElement);
@@ -126,6 +131,10 @@ document.addEventListener('visibilitychange', () => {
 });
 
 initGameOver(overlayElement, restart);
+
+initSession(render);
+
+initAvatar(avatarElement, openProfile);
 
 setInterval(() => {
   if (!isPlaying()) {

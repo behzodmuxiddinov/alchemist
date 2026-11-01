@@ -1,0 +1,32 @@
+.auth__divider {
+  color: var(--on-bg-muted);
+  font-size: var(--font-size-xs);
+  text-align: center;
+}
+
+.auth__form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.auth__field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2xs);
+  color: var(--accent);
+  font-size: var(--font-size-sm);
+}
+
+.auth__input {
+  padding: var(--space-xs);
+  border: var(--border-width) solid var(--border);
+  border-radius: var(--radius-sm);
+  background-color: var(--surface-raised);
+  color: var(--on-bg);
+}
+
+.auth__error {
+  color: var(--danger);
+  font-size: var(--font-size-xs);
+}
