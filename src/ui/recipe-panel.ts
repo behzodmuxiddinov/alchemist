@@ -1,4 +1,5 @@
-import { PARAMETER_KEYS, PARAMETER_LABELS } from '@/data/parameters';
+import { PARAMETER_KEYS } from '@/data/parameters';
+import { t } from '@/i18n';
 import {
   getMaxCauldronIngredients,
   isRunning,
@@ -22,17 +23,17 @@ export function renderRecipePanel(container: HTMLElement): void {
   const targets = PARAMETER_KEYS.map(
     (key) => `
       <li class="recipe__target recipe__target--${key}">
-        <span>${PARAMETER_LABELS[key]}</span>
+        <span>${t(`parameter.${key}`)}</span>
         <span>${recipe[key].min}..${recipe[key].max}</span>
       </li>
     `,
   ).join('');
 
   container.innerHTML = `
-    <h2 class="recipe__title">Current Recipe</h2>
+    <h2 class="recipe__title">${t('recipe.title')}</h2>
     <p class="recipe__name">${recipe.name}</p>
     <p class="recipe__counter ${isFull ? 'recipe__counter--full' : ''}">
-      Ingredients: ${added} / ${maxIngredients}
+      ${t('recipe.counter', { added, max: maxIngredients })}
     </p>
     <ul class="recipe__targets">${targets}</ul>
   `;

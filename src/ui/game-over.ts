@@ -1,3 +1,4 @@
+import { t } from '@/i18n';
 import {
   isValidPlayerName,
   MAX_NAME_LENGTH,
@@ -5,19 +6,12 @@ import {
 } from '@/logic/player-name';
 import { state } from '@/state/game-state';
 import { addResult, isTopScore } from '@/storage/leaderboard';
-import type { GameOverReason } from '@/types/game.types';
 import { openLeaderboard } from './leaderboard';
 import './game-over.scss';
 
-const REASON_LABELS: Record<GameOverReason, string> = {
-  time: 'Time is up',
-  lives: 'No lives left',
-  ingredients: 'Out of ingredients',
-};
-
 function renderNameForm(): string {
   if (state.isResultSaved) {
-    return '<p class="game-over__saved">Result saved to the leaderboard.</p>';
+    return `<p class="game-over__saved">${t('gameOver.saved')}</p>`;
   }
 
   if (!isTopScore(state.score)) {
@@ -27,7 +21,7 @@ function renderNameForm(): string {
   return `
     <form class="game-over__form">
       <label class="game-over__label" for="player-name">
-        Top 10 result! Enter your name
+        ${t('gameOver.nameLabel')}
       </label>
       <input
         class="game-over__input"
@@ -39,9 +33,9 @@ function renderNameForm(): string {
         autocomplete="off"
       />
       <p class="game-over__error" hidden>
-        Use ${MIN_NAME_LENGTH}-${MAX_NAME_LENGTH} letters, digits, space, _ or -
+        ${t('gameOver.nameError', { min: MIN_NAME_LENGTH, max: MAX_NAME_LENGTH })}
       </p>
-      <button class="button" type="submit">Save Result</button>
+      <button class="button" type="submit">${t('gameOver.save')}</button>
     </form>
   `;
 }
@@ -103,22 +97,22 @@ export function renderGameOver(container: HTMLElement): void {
 
   container.innerHTML = `
     <section class="game-over">
-      <h2 class="game-over__title">Game Over</h2>
-      <p class="game-over__reason">${REASON_LABELS[reason]}</p>
+      <h2 class="game-over__title">${t('gameOver.title')}</h2>
+      <p class="game-over__reason">${t(`gameOver.reason.${reason}`)}</p>
       <p class="game-over__score">
-        Final score: <span class="game-over__value">${state.score}</span>
+        ${t('gameOver.score')}: <span class="game-over__value">${state.score}</span>
       </p>
       ${renderNameForm()}
       <div class="game-over__actions">
         <button class="button" type="button" data-action="leaderboard">
-          Leaderboard
+          ${t('gameOver.leaderboard')}
         </button>
         <button
           class="button button--primary"
           type="button"
           data-action="play-again"
         >
-          Play Again
+          ${t('gameOver.playAgain')}
         </button>
       </div>
     </section>

@@ -1,9 +1,10 @@
+import { t } from '@/i18n';
 import './dialog.scss';
 
 export function openDialog(
   title: string,
   content: string,
-  closeLabel = 'Close',
+  closeLabel = t('dialog.close'),
 ): HTMLDialogElement {
   const dialog = document.createElement('dialog');
 
