@@ -1,4 +1,5 @@
-import { RULES } from '@/data/rules';
+import { RULE_KEYS } from '@/data/rules';
+import { t } from '@/i18n';
 import {
   canBrew,
   hasSavedGame,
@@ -18,7 +19,7 @@ export interface IActionHandlers {
 }
 
 function renderRules(): string {
-  return RULES.map((rule) => `<p>${rule}</p>`).join('');
+  return RULE_KEYS.map((key) => `<p>${t(key)}</p>`).join('');
 }
 
 export function initActions(
@@ -55,7 +56,7 @@ export function initActions(
         break;
       }
       case 'help': {
-        openDialog('How to play', renderRules());
+        openDialog(t('help.title'), renderRules());
 
         break;
       }
@@ -82,31 +83,31 @@ export function renderActions(container: HTMLElement): void {
         data-action="brew"
         ${canBrew() ? '' : 'disabled'}
       >
-        Brew
+        ${t('action.brew')}
       </button>
     `
     : `
       <button class="button button--primary" type="button" data-action="start">
-        Start Game
+        ${t('action.start')}
       </button>
     `;
 
   const pauseButton = isPlaying()
-    ? '<button class="button" type="button" data-action="pause">Pause</button>'
+    ? `<button class="button" type="button" data-action="pause">${t('action.pause')}</button>`
     : '';
 
   const continueButton =
     !isRunning() && hasSavedGame()
-      ? '<button class="button" type="button" data-action="continue">Continue</button>'
+      ? `<button class="button" type="button" data-action="continue">${t('action.continue')}</button>`
       : '';
 
   container.innerHTML = `
-    <button class="button" type="button" data-action="help">Help</button>
+    <button class="button" type="button" data-action="help">${t('action.help')}</button>
     <div class="actions__main">
       ${pauseButton}
       ${continueButton}
       ${mainButton}
     </div>
-    <button class="button" type="button" data-action="menu">Menu</button>
+    <button class="button" type="button" data-action="menu">${t('action.menu')}</button>
   `;
 }

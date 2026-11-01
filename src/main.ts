@@ -11,7 +11,8 @@ import {
   startGame,
   tick,
 } from '@/state/game-state';
-import { GAME_LAYOUT } from '@/ui/layout';
+import { applyLocale, t } from '@/i18n';
+import { getGameLayout } from '@/ui/layout';
 import { initShelf, renderShelf } from '@/ui/shelf';
 import { renderCauldron } from '@/ui/cauldron';
 import { initActions, renderActions } from '@/ui/actions';
@@ -36,7 +37,8 @@ function getElement(selector: string): HTMLElement {
 
 const app = getElement('#app');
 
-app.innerHTML = GAME_LAYOUT;
+applyLocale();
+app.innerHTML = getGameLayout();
 
 const hudElement = getElement('#hud');
 const shelfElement = getElement('#shelf');
@@ -47,8 +49,10 @@ const barsElement = getElement('#bars');
 const actionsElement = getElement('#actions');
 const overlayElement = getElement('#overlay');
 const gameElement = getElement('.game');
+const titleElement = getElement('.game__title');
 
 function render(): void {
+  titleElement.textContent = t('app.title');
   renderHud(hudElement);
   renderScore(scoreElement);
   renderShelf(shelfElement);

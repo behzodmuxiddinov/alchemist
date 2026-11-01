@@ -1,3 +1,4 @@
+import { t } from '@/i18n';
 import { getStock } from '@/logic/stock';
 import { getVisibleShelf, isCauldronFull, state } from '@/state/game-state';
 import type { IIngredient } from '@/types/game.types';
@@ -20,9 +21,9 @@ function renderCard(ingredient: IIngredient): string {
         <span class="card__body">
           <span class="card__name">${ingredient.name}</span>
           <span class="card__values">
-            <span class="chip chip--temperature">T${ingredient.temperature}</span>
-            <span class="chip chip--density">D${ingredient.density}</span>
-            <span class="chip chip--magic">MP${ingredient.magicPower}</span>
+            <span class="chip chip--temperature">${t('chip.temperature')}${ingredient.temperature}</span>
+            <span class="chip chip--density">${t('chip.density')}${ingredient.density}</span>
+            <span class="chip chip--magic">${t('chip.magicPower')}${ingredient.magicPower}</span>
           </span>
         </span>
         <span class="card__stock">${stock}</span>
@@ -50,7 +51,7 @@ export function initShelf(
 
 export function renderShelf(container: HTMLElement): void {
   container.innerHTML = `
-    <h2 class="shelf__title">Ingredients</h2>
+    <h2 class="shelf__title">${t('shelf.title')}</h2>
     <ul class="shelf__list">
       ${getVisibleShelf()
         .map((ingredient) => renderCard(ingredient))

@@ -1,8 +1,5 @@
-import {
-  PARAMETER_KEYS,
-  PARAMETER_LABELS,
-  type ParameterKey,
-} from '@/data/parameters';
+import { PARAMETER_KEYS, type ParameterKey } from '@/data/parameters';
+import { t } from '@/i18n';
 import { getBarScale, isInRange, toPercent } from '@/logic/bar-scale';
 import {
   getCauldronValues,
@@ -26,7 +23,7 @@ function renderBar(
   return `
     <li class="bar bar--${key} ${isInRange(value, target) ? 'bar--matched' : ''}">
       <p class="bar__head">
-        <span class="bar__label">${PARAMETER_LABELS[key]}</span>
+        <span class="bar__label">${t(`parameter.${key}`)}</span>
         <span class="bar__value">${value}</span>
       </p>
       <div class="bar__track">

@@ -1,9 +1,17 @@
 import {
   DIFFICULTIES,
-  DIFFICULTY_LABELS,
   DIFFICULTY_ORDER,
   isDifficulty,
 } from '@/data/difficulty';
+import {
+  getLocale,
+  isLocale,
+  LOCALE_LABELS,
+  LOCALE_ORDER,
+  setLocale,
+  t,
+  type Locale,
+} from '@/i18n';
 import {
   canChangeDifficulty,
   hasSavedGame,
@@ -19,44 +27,70 @@ function renderSummary(difficulty: Difficulty): string {
   const config = DIFFICULTIES[difficulty];
 
   return [
-    `${config.shelfSize} ingredients`,
-    `${config.maxCauldronIngredients} in the cauldron`,
-    `${config.startTime} s`,
-    `tolerance ±${config.tolerance}`,
-    `${config.lives} lives`,
-    `${config.scorePerBrew} per brew`,
+    t('menu.shelfSize', { count: config.shelfSize }),
+    t('menu.cauldron', { count: config.maxCauldronIngredients }),
+    t('menu.time', { count: config.startTime }),
+    t('menu.tolerance', { count: config.tolerance }),
+    t('menu.lives', { count: config.lives }),
+    t('menu.score', { count: config.scorePerBrew }),
   ].join(' · ');
 }
 
-function renderOption(difficulty: Difficulty): string {
-  const isActive = difficulty === state.difficulty;
-
+function renderOption(
+  action: string,
+  value: string,
+  label: string,
+  isActive: boolean,
+): string {
   return `
     <button
       class="button menu__option ${isActive ? 'menu__option--active' : ''}"
       type="button"
-      data-action="difficulty"
-      data-difficulty="${difficulty}"
+      data-action="${action}"
+      data-value="${value}"
       aria-pressed="${isActive}"
     >
-      ${DIFFICULTY_LABELS[difficulty]}
+      ${label}
     </button>
+  `;
+}
+
+function renderLanguage(): string {
+  const options = LOCALE_ORDER.map((locale: Locale) =>
+    renderOption(
+      'locale',
+      locale,
+      LOCALE_LABELS[locale],
+      locale === getLocale(),
+    ),
+  ).join('');
+
+  return `
+    <p>${t('menu.language')}</p>
+    <div class="menu__options">${options}</div>
   `;
 }
 
 function renderDifficulty(): string {
   if (!canChangeDifficulty()) {
     return `
-      <p>Difficulty: ${DIFFICULTY_LABELS[state.difficulty]}</p>
-      <p class="menu__summary">It can only be changed before a run starts.</p>
+      <p>${t('menu.difficultyFixed', { name: t(`difficulty.${state.difficulty}`) })}</p>
+      <p class="menu__summary">${t('menu.difficultyLocked')}</p>
     `;
   }
 
+  const options = DIFFICULTY_ORDER.map((difficulty) =>
+    renderOption(
+      'difficulty',
+      difficulty,
+      t(`difficulty.${difficulty}`),
+      difficulty === state.difficulty,
+    ),
+  ).join('');
+
   return `
-    <p>Difficulty</p>
-    <div class="menu__options">
-      ${DIFFICULTY_ORDER.map((difficulty) => renderOption(difficulty)).join('')}
-    </div>
+    <p>${t('menu.difficulty')}</p>
+    <div class="menu__options">${options}</div>
     <p class="menu__summary">${renderSummary(state.difficulty)}</p>
   `;
 }
@@ -68,20 +102,21 @@ function renderContinue(): string {
 
   return `
     <button class="button" type="button" data-action="continue">
-      Continue Game
+      ${t('menu.continue')}
     </button>
   `;
 }
 
 function renderMenu(): string {
   return `
+    ${renderLanguage()}
     ${renderDifficulty()}
     ${renderContinue()}
     <button class="button button--primary" type="button" data-action="new-game">
-      New Game
+      ${t('menu.newGame')}
     </button>
     <button class="button" type="button" data-action="leaderboard">
-      Leaderboard
+      ${t('menu.leaderboard')}
     </button>
   `;
 }
@@ -93,7 +128,7 @@ export interface IMenuHandlers {
 }
 
 export function openMenu(handlers: IMenuHandlers): void {
-  const dialog = openDialog('Menu', renderMenu());
+  const dialog = openDialog(t('menu.title'), renderMenu());
   const content = dialog.querySelector('.dialog__content');
 
   dialog.addEventListener('click', (event) => {
@@ -102,13 +137,22 @@ export function openMenu(handlers: IMenuHandlers): void {
     }
 
     const button = event.target.closest<HTMLButtonElement>('[data-action]');
+    const { value } = button?.dataset ?? {};
 
     switch (button?.dataset.action) {
-      case 'difficulty': {
-        const { difficulty } = button.dataset;
+      case 'locale': {
+        if (isLocale(value)) {
+          setLocale(value);
+          dialog.close();
+          handlers.onRender();
+          openMenu(handlers);
+        }
 
-        if (content && isDifficulty(difficulty)) {
-          setDifficulty(difficulty);
+        break;
+      }
+      case 'difficulty': {
+        if (content && isDifficulty(value)) {
+          setDifficulty(value);
           content.innerHTML = renderMenu();
           handlers.onRender();
         }
