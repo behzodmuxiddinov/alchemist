@@ -1,0 +1,17 @@
+.profile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2xs);
+}
+
+.profile__name {
+  color: var(--on-bg);
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-bold);
+}
+
+.profile__email {
+  color: var(--on-bg-muted);
+  font-size: var(--font-size-xs);
+}
