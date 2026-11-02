@@ -43,6 +43,7 @@ export const RU: Translation = {
     'Игра заканчивается, когда истекает время, кончаются жизни или пустеет полка.',
 
   'dialog.close': 'Закрыть',
+  'common.cancel': 'Отмена',
 
   'menu.title': 'Меню',
   'menu.language': 'Язык',
@@ -73,7 +74,6 @@ export const RU: Translation = {
   'leaderboard.clearText':
     'Все сохранённые результаты будут удалены. Это нельзя отменить.',
   'leaderboard.clearConfirm': 'Да, очистить',
-  'leaderboard.cancel': 'Отмена',
 
   'gameOver.title': 'Игра окончена',
   'gameOver.reason.time': 'Время вышло',
@@ -91,6 +91,12 @@ export const RU: Translation = {
 
   'profile.title': 'Профиль',
   'profile.signOut': 'Выйти',
+  'profile.signOutText':
+    'Чтобы снова открыть профиль, нужно будет войти заново.',
+  'profile.signOutConfirm': 'Да, выйти',
+  'profile.history': 'Последние игры',
+  'profile.empty': 'Пока нет сыгранных игр.',
+  'profile.back': 'Вернуться к игре',
 
   'auth.title': 'Аккаунт',
   'auth.google': 'Продолжить с Google',

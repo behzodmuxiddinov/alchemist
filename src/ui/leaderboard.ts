@@ -55,7 +55,7 @@ function confirmClear(onCleared: () => void): void {
         ${t('leaderboard.clearConfirm')}
       </button>
     `,
-    t('leaderboard.cancel'),
+    t('common.cancel'),
   );
 
   dialog
