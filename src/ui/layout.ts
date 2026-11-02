@@ -1,7 +1,7 @@
 import { t } from '@/i18n';
 import './layout.scss';
 
-export function getGameLayout(): string {
+export function getLayout(): string {
   return `
     <div class="game">
       <header class="game__hud">
@@ -19,5 +19,6 @@ export function getGameLayout(): string {
       <footer class="game__actions" id="actions"></footer>
       <div class="game__overlay" id="overlay"></div>
     </div>
+    <section class="profile" id="profile" hidden></section>
   `;
 }

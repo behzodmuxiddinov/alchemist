@@ -41,6 +41,7 @@ export const EN = {
     'The run ends when the time or the lives run out, or the shelf is empty.',
 
   'dialog.close': 'Close',
+  'common.cancel': 'Cancel',
 
   'menu.title': 'Menu',
   'menu.language': 'Language',
@@ -71,7 +72,6 @@ export const EN = {
   'leaderboard.clearText':
     'All saved results will be removed. This cannot be undone.',
   'leaderboard.clearConfirm': 'Yes, clear it',
-  'leaderboard.cancel': 'Cancel',
 
   'gameOver.title': 'Game Over',
   'gameOver.reason.time': 'Time is up',
@@ -89,6 +89,11 @@ export const EN = {
 
   'profile.title': 'Profile',
   'profile.signOut': 'Sign Out',
+  'profile.signOutText': 'You will need to sign in again to open your profile.',
+  'profile.signOutConfirm': 'Yes, sign out',
+  'profile.history': 'Recent games',
+  'profile.empty': 'No games played yet.',
+  'profile.back': 'Back to the game',
 
   'auth.title': 'Account',
   'auth.google': 'Continue with Google',

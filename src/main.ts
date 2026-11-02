@@ -12,7 +12,7 @@ import {
   tick,
 } from '@/state/game-state';
 import { applyLocale, t } from '@/i18n';
-import { getGameLayout } from '@/ui/layout';
+import { getLayout } from '@/ui/layout';
 import { initShelf, renderShelf } from '@/ui/shelf';
 import { renderCauldron } from '@/ui/cauldron';
 import { initActions, renderActions } from '@/ui/actions';
@@ -23,8 +23,9 @@ import { renderRecipePanel } from '@/ui/recipe-panel';
 import { initGameOver, renderGameOver } from '@/ui/game-over';
 import { openPauseDialog } from '@/ui/pause';
 import { initAvatar, renderAvatar } from '@/ui/avatar';
-import { openProfile } from '@/ui/profile';
-import { initSession } from '@/state/session';
+import { initProfilePage, renderProfilePage } from '@/ui/profile';
+import { goToProfile, initRouter, isProfileRoute } from '@/ui/router';
+import { initSession, isSignedIn } from '@/state/session';
 
 const TICK_INTERVAL = 500;
 
@@ -41,7 +42,7 @@ function getElement(selector: string): HTMLElement {
 const app = getElement('#app');
 
 applyLocale();
-app.innerHTML = getGameLayout();
+app.innerHTML = getLayout();
 
 const hudElement = getElement('#hud');
 const shelfElement = getElement('#shelf');
@@ -54,8 +55,21 @@ const overlayElement = getElement('#overlay');
 const gameElement = getElement('.game');
 const avatarElement = getElement('#avatar');
 const titleElement = getElement('.game__title');
+const profileElement = getElement('#profile');
 
 function render(): void {
+  const isProfile = isProfileRoute() && isSignedIn();
+
+  gameElement.hidden = isProfile;
+  profileElement.hidden = !isProfile;
+  document.title = t(isProfile ? 'profile.title' : 'app.title');
+
+  if (isProfile) {
+    renderProfilePage(profileElement);
+
+    return;
+  }
+
   titleElement.textContent = t('app.title');
   renderHud(hudElement);
   renderAvatar(avatarElement);
@@ -132,9 +146,28 @@ document.addEventListener('visibilitychange', () => {
 
 initGameOver(overlayElement, restart);
 
+function handleRoute(): void {
+  if (isProfileRoute()) {
+    pauseGame();
+    render();
+
+    return;
+  }
+
+  render();
+
+  if (isPaused()) {
+    openPauseOverlay();
+  }
+}
+
 initSession(render);
 
-initAvatar(avatarElement, openProfile);
+initRouter(handleRoute);
+
+initAvatar(avatarElement, goToProfile);
+
+initProfilePage(profileElement);
 
 setInterval(() => {
   if (!isPlaying()) {
