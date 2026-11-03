@@ -8,6 +8,7 @@ import {
   isPlaying,
   pauseGame,
   resumeGame,
+  setGameOverListener,
   startGame,
   tick,
 } from '@/state/game-state';
@@ -26,6 +27,7 @@ import { initAvatar, renderAvatar } from '@/ui/avatar';
 import { initProfilePage, renderProfilePage } from '@/ui/profile';
 import { goToProfile, initRouter, isProfileRoute } from '@/ui/router';
 import { initSession, isSignedIn } from '@/state/session';
+import { saveRun } from '@/service/runs';
 
 const TICK_INTERVAL = 500;
 
@@ -168,6 +170,10 @@ initRouter(handleRoute);
 initAvatar(avatarElement, goToProfile);
 
 initProfilePage(profileElement);
+
+setGameOverListener((run) => {
+  void saveRun(run);
+});
 
 setInterval(() => {
   if (!isPlaying()) {

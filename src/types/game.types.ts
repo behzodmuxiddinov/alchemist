@@ -74,6 +74,17 @@ export interface ISavedGame {
   savedAt: number;
 }
 
+export interface IRunResult {
+  score: number;
+  difficulty: Difficulty;
+  reason: GameOverReason;
+}
+
+export interface IRunEntry extends IRunResult {
+  id: string;
+  playedAt: number;
+}
+
 export interface IReaction {
   id: string;
   name: string;

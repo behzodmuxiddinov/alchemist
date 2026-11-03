@@ -48,3 +48,44 @@
   color: var(--on-bg-muted);
   font-size: var(--font-size-sm);
 }
+
+.history {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2xs);
+}
+
+.history__row {
+  display: grid;
+  align-items: center;
+  gap: var(--space-xs);
+  grid-template-columns: 1.3fr 0.9fr 0.6fr 1.4fr;
+  padding: var(--space-2xs) var(--space-xs);
+  border-radius: var(--radius-sm);
+  background-color: var(--surface-raised);
+  font-size: var(--font-size-xs);
+}
+
+.history__row--head {
+  background-color: transparent;
+  color: var(--on-bg-muted);
+  letter-spacing: var(--letter-spacing-wide);
+  text-transform: uppercase;
+}
+
+.history__date,
+.history__difficulty {
+  color: var(--on-bg-muted);
+}
+
+.history__score {
+  color: var(--accent);
+  font-weight: var(--font-weight-bold);
+}
+
+.history__reason {
+  overflow: hidden;
+  color: var(--on-bg-muted);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
