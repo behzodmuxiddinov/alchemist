@@ -1,0 +1,21 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /users/{userId}/runs/{runId} {
+      allow read: if request.auth != null && request.auth.uid == userId;
+
+      allow create: if request.auth != null
+        && request.auth.uid == userId
+        && request.resource.data.keys().hasOnly(
+             ['score', 'difficulty', 'reason', 'playedAt'])
+        && request.resource.data.score is int
+        && request.resource.data.score >= 0
+        && request.resource.data.difficulty in ['easy', 'medium', 'hard']
+        && request.resource.data.reason in ['time', 'lives', 'ingredients']
+        && request.resource.data.playedAt == request.time;
+
+      allow update, delete: if false;
+    }
+  }
+}
