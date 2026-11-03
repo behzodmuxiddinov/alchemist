@@ -91,7 +91,7 @@ function renderDifficulty(): string {
   ).join('');
 
   return `
-    <p>${t('menu.difficulty')}</p>
+    <p>${t('common.difficulty')}</p>
     <div class="menu__options">${options}</div>
     <p class="menu__summary">${renderSummary(state.difficulty)}</p>
   `;
