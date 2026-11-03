@@ -29,8 +29,8 @@ function renderRows(): string {
       <li class="leaderboard__row leaderboard__row--head">
         <span>#</span>
         <span>${t('leaderboard.name')}</span>
-        <span>${t('leaderboard.score')}</span>
-        <span>${t('leaderboard.date')}</span>
+        <span>${t('common.score')}</span>
+        <span>${t('common.date')}</span>
       </li>
       ${rows}
     </ol>

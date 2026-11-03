@@ -1,11 +1,61 @@
 import { t } from '@/i18n';
+import { formatDate } from '@/logic/timer';
+import { readRuns } from '@/service/runs';
 import { signOutUser } from '@/service/auth';
 import { getUserEmail, getUsername, isSignedIn } from '@/state/session';
+import type { IRunEntry } from '@/types/game.types';
 import { renderAvatarContent } from './avatar';
 import { openDialog } from './dialog';
 import { escapeHtml } from './escape';
 import { goToGame } from './router';
 import './profile.scss';
+
+function renderRun(run: IRunEntry): string {
+  return `
+    <li class="history__row">
+      <span class="history__date">${formatDate(run.playedAt)}</span>
+      <span class="history__difficulty">${t(`difficulty.${run.difficulty}`)}</span>
+      <span class="history__score">${run.score}</span>
+      <span class="history__reason">${t(`gameOver.reason.${run.reason}`)}</span>
+    </li>
+  `;
+}
+
+function renderHistory(runs: IRunEntry[]): string {
+  if (runs.length === 0) {
+    return `<p class="profile__empty">${t('profile.empty')}</p>`;
+  }
+
+  const rows = runs.map((run) => renderRun(run)).join('');
+
+  return `
+    <ol class="history">
+      <li class="history__row history__row--head">
+        <span>${t('common.date')}</span>
+        <span>${t('common.difficulty')}</span>
+        <span>${t('common.score')}</span>
+        <span>${t('common.reason')}</span>
+      </li>
+      ${rows}
+    </ol>
+  `;
+}
+
+async function fillHistory(container: HTMLElement): Promise<void> {
+  let content: string;
+
+  try {
+    content = renderHistory(await readRuns());
+  } catch {
+    content = `<p class="profile__empty">${t('profile.loadError')}</p>`;
+  }
+
+  const element = container.querySelector('.profile__history');
+
+  if (element) {
+    element.innerHTML = content;
+  }
+}
 
 export function renderProfilePage(container: HTMLElement): void {
   if (!isSignedIn()) {
@@ -30,9 +80,13 @@ export function renderProfilePage(container: HTMLElement): void {
     </header>
     <section class="profile__panel panel">
       <h2 class="profile__section">${t('profile.history')}</h2>
-      <p class="profile__empty">${t('profile.empty')}</p>
+      <div class="profile__history">
+        <p class="profile__empty">${t('common.loading')}</p>
+      </div>
     </section>
   `;
+
+  void fillHistory(container);
 }
 
 function confirmSignOut(): void {

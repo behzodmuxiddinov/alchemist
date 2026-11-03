@@ -42,10 +42,14 @@ export const EN = {
 
   'dialog.close': 'Close',
   'common.cancel': 'Cancel',
+  'common.loading': 'Loading...',
+  'common.date': 'Date',
+  'common.difficulty': 'Difficulty',
+  'common.score': 'Score',
+  'common.reason': 'Reason',
 
   'menu.title': 'Menu',
   'menu.language': 'Language',
-  'menu.difficulty': 'Difficulty',
   'menu.difficultyFixed': 'Difficulty: {name}',
   'menu.difficultyLocked': 'It can only be changed before a run starts.',
   'menu.shelfSize': '{count} ingredients',
@@ -66,8 +70,6 @@ export const EN = {
   'leaderboard.title': 'Top 10',
   'leaderboard.empty': 'No results yet.',
   'leaderboard.name': 'Name',
-  'leaderboard.score': 'Score',
-  'leaderboard.date': 'Date',
   'leaderboard.clear': 'Clear Leaderboard',
   'leaderboard.clearText':
     'All saved results will be removed. This cannot be undone.',
@@ -93,6 +95,7 @@ export const EN = {
   'profile.signOutConfirm': 'Yes, sign out',
   'profile.history': 'Recent games',
   'profile.empty': 'No games played yet.',
+  'profile.loadError': 'Could not load the history.',
   'profile.back': 'Back to the game',
 
   'auth.title': 'Account',

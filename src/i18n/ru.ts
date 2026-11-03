@@ -44,10 +44,14 @@ export const RU: Translation = {
 
   'dialog.close': 'Закрыть',
   'common.cancel': 'Отмена',
+  'common.loading': 'Загрузка...',
+  'common.date': 'Дата',
+  'common.difficulty': 'Сложность',
+  'common.score': 'Очки',
+  'common.reason': 'Причина',
 
   'menu.title': 'Меню',
   'menu.language': 'Язык',
-  'menu.difficulty': 'Сложность',
   'menu.difficultyFixed': 'Сложность: {name}',
   'menu.difficultyLocked': 'Её можно изменить только до начала игры.',
   'menu.shelfSize': 'ингредиентов: {count}',
@@ -68,8 +72,6 @@ export const RU: Translation = {
   'leaderboard.title': 'Топ-10',
   'leaderboard.empty': 'Пока нет результатов.',
   'leaderboard.name': 'Имя',
-  'leaderboard.score': 'Очки',
-  'leaderboard.date': 'Дата',
   'leaderboard.clear': 'Очистить таблицу',
   'leaderboard.clearText':
     'Все сохранённые результаты будут удалены. Это нельзя отменить.',
@@ -96,6 +98,7 @@ export const RU: Translation = {
   'profile.signOutConfirm': 'Да, выйти',
   'profile.history': 'Последние игры',
   'profile.empty': 'Пока нет сыгранных игр.',
+  'profile.loadError': 'Не удалось загрузить историю.',
   'profile.back': 'Вернуться к игре',
 
   'auth.title': 'Аккаунт',

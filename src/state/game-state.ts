@@ -21,6 +21,7 @@ import type {
   IDifficultyConfig,
   IIngredient,
   IRecipe,
+  IRunResult,
   ISavedGame,
 } from '@/types/game.types';
 
@@ -37,6 +38,12 @@ export const state = {
   gameOverReason: undefined as GameOverReason | undefined,
   isResultSaved: false,
 };
+
+const listeners: { onGameOver?: (run: IRunResult) => void } = {};
+
+export function setGameOverListener(listener: (run: IRunResult) => void): void {
+  listeners.onGameOver = listener;
+}
 
 export function getConfig(): IDifficultyConfig {
   return DIFFICULTIES[state.difficulty];
@@ -200,6 +207,11 @@ export function endGame(reason: GameOverReason): void {
   state.status = 'game-over';
   state.gameOverReason = reason;
   state.timeLeft = getRemainingSeconds(state.endsAt);
+  listeners.onGameOver?.({
+    score: state.score,
+    difficulty: state.difficulty,
+    reason,
+  });
 }
 
 export function tick(): void {
