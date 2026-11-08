@@ -18,12 +18,41 @@
   font-size: var(--font-size-sm);
 }
 
+.auth__control {
+  position: relative;
+  display: block;
+}
+
 .auth__input {
+  width: 100%;
   padding: var(--space-xs);
   border: var(--border-width) solid var(--border);
   border-radius: var(--radius-sm);
   background-color: var(--surface-raised);
   color: var(--on-bg);
+}
+
+.auth__control:has(.auth__toggle) .auth__input {
+  padding-right: calc(var(--space-md) + var(--icon-sm));
+}
+
+.auth__toggle {
+  position: absolute;
+  top: 50%;
+  right: var(--space-xs);
+  display: flex;
+  color: var(--on-bg-muted);
+  transform: translateY(-50%);
+  transition: color var(--duration-fast) var(--easing-base);
+}
+
+.auth__toggle:hover {
+  color: var(--accent);
+}
+
+.auth__toggle svg {
+  width: var(--icon-sm);
+  height: var(--icon-sm);
 }
 
 .auth__error {

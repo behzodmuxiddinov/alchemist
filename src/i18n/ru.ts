@@ -108,6 +108,8 @@ export const RU: Translation = {
   'auth.email': 'Почта',
   'auth.password': 'Пароль',
   'auth.confirm': 'Повторите пароль',
+  'auth.showPassword': 'Показать пароль',
+  'auth.hidePassword': 'Скрыть пароль',
   'auth.submitSignIn': 'Войти',
   'auth.submitRegister': 'Создать аккаунт',
   'auth.noAccount': 'Нет аккаунта? Зарегистрируйтесь',
