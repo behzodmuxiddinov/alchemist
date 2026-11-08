@@ -2,9 +2,24 @@ import { t, type TranslationKey } from '@/i18n';
 import { getCredentialsError } from '@/logic/credentials';
 import { register, signIn, signInWithGoogle } from '@/service/auth';
 import { openDialog } from './dialog';
+import eyeIcon from '@/assets/icons/eye.svg?raw';
+import eyeOffIcon from '@/assets/icons/eye-off.svg?raw';
 import './auth.scss';
 
 type AuthMode = 'sign-in' | 'register';
+
+function renderToggle(): string {
+  return `
+    <button
+      class="auth__toggle"
+      type="button"
+      data-action="password"
+      aria-label="${t('auth.showPassword')}"
+    >
+      ${eyeIcon}
+    </button>
+  `;
+}
 
 function renderField(
   name: string,
@@ -15,14 +30,34 @@ function renderField(
   return `
     <label class="auth__field">
       <span>${label}</span>
-      <input
-        class="auth__input"
-        name="${name}"
-        type="${type}"
-        autocomplete="${autocomplete}"
-      />
+      <span class="auth__control">
+        <input
+          class="auth__input"
+          name="${name}"
+          type="${type}"
+          autocomplete="${autocomplete}"
+        />
+        ${type === 'password' ? renderToggle() : ''}
+      </span>
     </label>
   `;
+}
+
+function togglePassword(button: HTMLButtonElement): void {
+  const input = button.previousElementSibling;
+
+  if (!(input instanceof HTMLInputElement)) {
+    return;
+  }
+
+  const isVisible = input.type === 'text';
+
+  input.type = isVisible ? 'password' : 'text';
+  button.innerHTML = isVisible ? eyeIcon : eyeOffIcon;
+  button.setAttribute(
+    'aria-label',
+    t(isVisible ? 'auth.showPassword' : 'auth.hidePassword'),
+  );
 }
 
 function renderAuth(mode: AuthMode): string {
@@ -124,12 +159,16 @@ export function openAuthDialog(onDone: () => void): void {
   });
 
   dialog.addEventListener('click', (event) => {
-    if (!(event.target instanceof HTMLElement)) {
+    if (!(event.target instanceof Element)) {
       return;
     }
 
-    const action =
-      event.target.closest<HTMLButtonElement>('[data-action]')?.dataset.action;
+    const button = event.target.closest<HTMLButtonElement>('[data-action]');
+    const action = button?.dataset.action;
+
+    if (action === 'password' && button) {
+      togglePassword(button);
+    }
 
     if (action === 'mode' && content) {
       mode = mode === 'register' ? 'sign-in' : 'register';

@@ -105,6 +105,8 @@ export const EN = {
   'auth.email': 'Email',
   'auth.password': 'Password',
   'auth.confirm': 'Repeat password',
+  'auth.showPassword': 'Show password',
+  'auth.hidePassword': 'Hide password',
   'auth.submitSignIn': 'Sign In',
   'auth.submitRegister': 'Create Account',
   'auth.noAccount': 'No account? Register',
