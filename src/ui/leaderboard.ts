@@ -1,3 +1,4 @@
+import { t } from '@/i18n';
 import { formatDate } from '@/logic/timer';
 import { clearLeaderboard, readLeaderboard } from '@/storage/leaderboard';
 import { openDialog } from './dialog';
@@ -7,7 +8,7 @@ function renderRows(): string {
   const entries = readLeaderboard();
 
   if (entries.length === 0) {
-    return '<p class="leaderboard__empty">No results yet.</p>';
+    return `<p class="leaderboard__empty">${t('leaderboard.empty')}</p>`;
   }
 
   const rows = entries
@@ -27,9 +28,9 @@ function renderRows(): string {
     <ol class="leaderboard">
       <li class="leaderboard__row leaderboard__row--head">
         <span>#</span>
-        <span>Name</span>
-        <span>Score</span>
-        <span>Date</span>
+        <span>${t('leaderboard.name')}</span>
+        <span>${t('common.score')}</span>
+        <span>${t('common.date')}</span>
       </li>
       ${rows}
     </ol>
@@ -40,21 +41,21 @@ function renderContent(): string {
   return `
     ${renderRows()}
     <button class="button" type="button" data-action="clear">
-      Clear Leaderboard
+      ${t('leaderboard.clear')}
     </button>
   `;
 }
 
 function confirmClear(onCleared: () => void): void {
   const dialog = openDialog(
-    'Clear Leaderboard',
+    t('leaderboard.clear'),
     `
-      <p>All saved results will be removed. This cannot be undone.</p>
+      <p>${t('leaderboard.clearText')}</p>
       <button class="button" type="button" data-action="confirm-clear">
-        Yes, clear it
+        ${t('leaderboard.clearConfirm')}
       </button>
     `,
-    'Cancel',
+    t('common.cancel'),
   );
 
   dialog
@@ -67,7 +68,7 @@ function confirmClear(onCleared: () => void): void {
 }
 
 export function openLeaderboard(): void {
-  const dialog = openDialog('Top 10', renderContent());
+  const dialog = openDialog(t('leaderboard.title'), renderContent());
   const content = dialog.querySelector('.dialog__content');
 
   dialog.addEventListener('click', (event) => {

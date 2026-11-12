@@ -8,10 +8,12 @@ import {
   isPlaying,
   pauseGame,
   resumeGame,
+  setGameOverListener,
   startGame,
   tick,
 } from '@/state/game-state';
-import { GAME_LAYOUT } from '@/ui/layout';
+import { applyLocale, t } from '@/i18n';
+import { getLayout } from '@/ui/layout';
 import { initShelf, renderShelf } from '@/ui/shelf';
 import { renderCauldron } from '@/ui/cauldron';
 import { initActions, renderActions } from '@/ui/actions';
@@ -21,6 +23,11 @@ import { renderBars } from '@/ui/bars';
 import { renderRecipePanel } from '@/ui/recipe-panel';
 import { initGameOver, renderGameOver } from '@/ui/game-over';
 import { openPauseDialog } from '@/ui/pause';
+import { initAvatar, renderAvatar } from '@/ui/avatar';
+import { initProfilePage, renderProfilePage } from '@/ui/profile';
+import { goToProfile, initRouter, isProfileRoute } from '@/ui/router';
+import { initSession, isSignedIn } from '@/state/session';
+import { saveRun } from '@/service/runs';
 
 const TICK_INTERVAL = 500;
 
@@ -36,7 +43,8 @@ function getElement(selector: string): HTMLElement {
 
 const app = getElement('#app');
 
-app.innerHTML = GAME_LAYOUT;
+applyLocale();
+app.innerHTML = getLayout();
 
 const hudElement = getElement('#hud');
 const shelfElement = getElement('#shelf');
@@ -47,9 +55,26 @@ const barsElement = getElement('#bars');
 const actionsElement = getElement('#actions');
 const overlayElement = getElement('#overlay');
 const gameElement = getElement('.game');
+const avatarElement = getElement('#avatar');
+const titleElement = getElement('.game__title');
+const profileElement = getElement('#profile');
 
 function render(): void {
+  const isProfile = isProfileRoute() && isSignedIn();
+
+  gameElement.hidden = isProfile;
+  profileElement.hidden = !isProfile;
+  document.title = t(isProfile ? 'profile.title' : 'app.title');
+
+  if (isProfile) {
+    renderProfilePage(profileElement);
+
+    return;
+  }
+
+  titleElement.textContent = t('app.title');
   renderHud(hudElement);
+  renderAvatar(avatarElement);
   renderScore(scoreElement);
   renderShelf(shelfElement);
   renderCauldron(cauldronElement);
@@ -122,6 +147,33 @@ document.addEventListener('visibilitychange', () => {
 });
 
 initGameOver(overlayElement, restart);
+
+function handleRoute(): void {
+  if (isProfileRoute()) {
+    pauseGame();
+    render();
+
+    return;
+  }
+
+  render();
+
+  if (isPaused()) {
+    openPauseOverlay();
+  }
+}
+
+initSession(render);
+
+initRouter(handleRoute);
+
+initAvatar(avatarElement, goToProfile);
+
+initProfilePage(profileElement);
+
+setGameOverListener((run) => {
+  void saveRun(run);
+});
 
 setInterval(() => {
   if (!isPlaying()) {

@@ -1,14 +1,25 @@
 .game__hud {
   display: flex;
   align-items: center;
-  flex-wrap: wrap;
-  justify-content: space-between;
   gap: var(--space-sm);
   padding: var(--space-xs) var(--space-sm);
   border: var(--border-width) solid var(--border);
   border-radius: var(--radius-md);
   background-color: var(--surface);
   font-size: var(--font-size-sm);
+}
+
+.game__hud > :empty {
+  display: none;
+}
+
+.hud {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: var(--space-sm);
 }
 
 .hud__difficulty {

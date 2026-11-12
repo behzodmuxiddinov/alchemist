@@ -1,3 +1,4 @@
+import { t } from '@/i18n';
 import { openDialog } from './dialog';
 
 const PAUSE_CLASS = 'dialog--pause';
@@ -15,14 +16,14 @@ export function openPauseDialog(
   }
 
   const dialog = openDialog(
-    'Paused',
+    t('pause.title'),
     `
-      <p>The run is on hold and the timer is stopped.</p>
+      <p>${t('pause.text')}</p>
       <button class="button" type="button" data-action="exit">
-        Exit to Menu
+        ${t('pause.exit')}
       </button>
     `,
-    'Resume',
+    t('pause.resume'),
   );
 
   dialog.classList.add(PAUSE_CLASS);

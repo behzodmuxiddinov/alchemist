@@ -8,12 +8,6 @@ export const DIFFICULTY_ORDER: readonly Difficulty[] = [
   'hard',
 ];
 
-export const DIFFICULTY_LABELS: Record<Difficulty, string> = {
-  easy: 'Easy',
-  medium: 'Medium',
-  hard: 'Hard',
-};
-
 export function isDifficulty(value: unknown): value is Difficulty {
   return (
     typeof value === 'string' &&

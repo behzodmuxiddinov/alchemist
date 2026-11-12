@@ -62,6 +62,10 @@
   grid-area: actions;
 }
 
+.game[hidden] {
+  display: none;
+}
+
 .game--paused {
   filter: blur(var(--blur-paused));
   pointer-events: none;
